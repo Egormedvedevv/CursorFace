@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CursorFace Start</title>
+    <link rel="stylesheet" href="./start.css" />
+    <link rel="icon" href="./images/favicon.png" type="image/png" />
+    <meta
+      name="description"
+      content="CursorFace – playful web experiment where quirky characters follow your every cursor move."
+    />
+  </head>
+  <body>
+    <div class="mobile-view">
+      <img
+        src="./images/forphones.png"
+        alt="Mobile Version"
+        class="forphones-img"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="desktop-view">
+      <img src="./startimgs/logo.png" class="logo" alt="Logo" loading="lazy" />
+
+      <div class="right-layers">
+        <img
+          src="./startimgs/grayblocks.png"
+          alt="Gray Blocks"
+          class="layer grayblocks"
+          loading="lazy"
+        />
+        <img
+          src="./startimgs/interface.png"
+          alt="Interface Face"
+          class="layer interface"
+          loading="lazy"
+        />
+        <img
+          src="./startimgs/blackblocks.png"
+          alt="Black Blocks"
+          class="layer blackblocks"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="character-switcher">
+        <div class="choose-label">choose:</div>
+        <div class="char-buttons">
+          <a href="./main.html?char=1"
+            ><img
+              src="./images/char1.png"
+              alt="Персонаж 1"
+              data-char="1"
+              loading="lazy"
+          /></a>
+          <a href="./main.html?char=2"
+            ><img
+              src="./images/char2.png"
+              alt="Персонаж 2"
+              data-char="2"
+              loading="lazy"
+          /></a>
+          <a href="./main.html?char=3"
+            ><img
+              src="./images/char3.png"
+              alt="Персонаж 3"
+              data-char="3"
+              loading="lazy"
+          /></a>
+          <a href="./main.html?char=4"
+            ><img
+              src="./images/char4.png"
+              alt="Персонаж 4"
+              data-char="4"
+              loading="lazy"
+          /></a>
+          <a href="./main.html?char=5"
+            ><img
+              src="./images/char5.png"
+              alt="Персонаж 5"
+              data-char="5"
+              loading="lazy"
+          /></a>
+          <a href="./main.html?char=6"
+            ><img
+              src="./images/char6.png"
+              alt="Персонаж 6"
+              data-char="6"
+              loading="lazy"
+          /></a>
+        </div>
+      </div>
+
+      <button id="info-btn" title="Info" aria-label="Info">
+        <img src="./startimgs/i.png" alt="Info" loading="lazy" />
+      </button>
+
+      <div id="info-modal" class="modal">
+        <div class="modal-content">
+          <button id="close-info">&times;</button>
+          <h2>Welcome to CursorFace!</h2>
+          <p>Stumbled here with nothing better to do? Perfect.</p>
+          <p>
+            Here, six quirky characters will silently watch your every move,
+            tracking your cursor with an almost eerie curiosity.
+          </p>
+          <p>
+            Whether you’re procrastinating, taking a break, or just feeling like
+            being observed by pixelated eyes — you’ve found the right place.
+          </p>
+          <p>Sit back, relax, and let the faces follow you around.</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="./start.js" defer></script>
+  </body>
+</html>
