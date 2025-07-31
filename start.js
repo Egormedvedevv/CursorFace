@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (face) {
     document.addEventListener("mousemove", (e) => {
-      targetX = (window.innerWidth / 2 - e.clientX) * 0.03;
-      targetY = (window.innerHeight / 2 - e.clientY) * 0.03;
+      targetX = (window.innerWidth / 2 - e.clientX) * 0.012;
+      targetY = (window.innerHeight / 2 - e.clientY) * 0.012;
     });
 
     function animate() {
