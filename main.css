@@ -198,5 +198,12 @@ footer .logo:hover {
 
 .fade-out {
   opacity: 0;
+  transition: opacity 2s ease;
 }
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 2s ease;
+}
+
 
