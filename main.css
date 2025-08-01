@@ -23,7 +23,7 @@ body {
   background: black;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.01s ease;
+  transition: opacity 0.1s ease;
   z-index: 50;
 }
 
@@ -37,7 +37,6 @@ main {
 
 footer {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   padding: 20px 40px;
   background-color: #000;
@@ -198,12 +197,4 @@ footer .logo:hover {
 
 .fade-out {
   opacity: 0;
-  transition: opacity 2s ease;
 }
-
-.fade-in {
-  opacity: 1;
-  transition: opacity 2s ease;
-}
-
-
