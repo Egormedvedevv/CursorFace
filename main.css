@@ -23,7 +23,7 @@ body {
   background: black;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.01s ease;
   z-index: 50;
 }
 
@@ -46,6 +46,19 @@ footer {
   position: sticky;
   bottom: 0;
   z-index: 100;
+}
+
+footer .bymd {
+  height: 60px;
+  object-fit: contain;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+footer .bymd:hover {
+  opacity: 1;
 }
 
 footer .logo {
@@ -186,3 +199,4 @@ footer .logo:hover {
 .fade-out {
   opacity: 0;
 }
+
