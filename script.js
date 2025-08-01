@@ -64,16 +64,23 @@ function applyEyePositions(img) {
   const rightEye = document.getElementById("right-eye");
 
   if (img.dataset.eyeLeftTop) leftEye.style.top = img.dataset.eyeLeftTop + "px";
-  if (img.dataset.eyeLeftLeft) leftEye.style.left = img.dataset.eyeLeftLeft + "px";
+  if (img.dataset.eyeLeftLeft)
+    leftEye.style.left = img.dataset.eyeLeftLeft + "px";
 
-  if (img.dataset.eyeRightTop) rightEye.style.top = img.dataset.eyeRightTop + "px";
-  if (img.dataset.eyeRightLeft) rightEye.style.left = img.dataset.eyeRightLeft + "px";
+  if (img.dataset.eyeRightTop)
+    rightEye.style.top = img.dataset.eyeRightTop + "px";
+  if (img.dataset.eyeRightLeft)
+    rightEye.style.left = img.dataset.eyeRightLeft + "px";
 
-  if (img.dataset.pupilLeftTop) leftPupil.style.top = img.dataset.pupilLeftTop + "px";
-  if (img.dataset.pupilLeftLeft) leftPupil.style.left = img.dataset.pupilLeftLeft + "px";
+  if (img.dataset.pupilLeftTop)
+    leftPupil.style.top = img.dataset.pupilLeftTop + "px";
+  if (img.dataset.pupilLeftLeft)
+    leftPupil.style.left = img.dataset.pupilLeftLeft + "px";
 
-  if (img.dataset.pupilRightTop) rightPupil.style.top = img.dataset.pupilRightTop + "px";
-  if (img.dataset.pupilRightLeft) rightPupil.style.left = img.dataset.pupilRightLeft + "px";
+  if (img.dataset.pupilRightTop)
+    rightPupil.style.top = img.dataset.pupilRightTop + "px";
+  if (img.dataset.pupilRightLeft)
+    rightPupil.style.left = img.dataset.pupilRightLeft + "px";
 }
 
 thumbnails.forEach((img) => {
@@ -81,7 +88,6 @@ thumbnails.forEach((img) => {
     thumbnails.forEach((i) => i.classList.remove("active"));
     img.classList.add("active");
 
-    screenFader.style.transition = "opacity 2s ease";
     screenFader.style.opacity = "1";
 
     setTimeout(() => {
@@ -94,14 +100,19 @@ thumbnails.forEach((img) => {
       applyEyePositions(img);
 
       screenFader.style.opacity = "0";
-    }, 2000);
+    }, 250);
   });
 });
 
 window.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
-  const selectedChar = params.get("char") || "1";
 
+  if (!params.has("char")) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  const selectedChar = params.get("char") || "1";
   const selectedImg = [...thumbnails].find(
     (img) => img.dataset.char === selectedChar
   );
