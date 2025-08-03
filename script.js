@@ -23,8 +23,8 @@ document.addEventListener("mousemove", (e) => {
 });
 
 function animateEyes() {
-  currentX += (targetX - currentX) * 0.1;
-  currentY += (targetY - currentY) * 0.1;
+  currentX += (targetX - currentX) * 0.07;
+  currentY += (targetY - currentY) * 0.07;
 
   document.querySelectorAll(".eye").forEach((eye) => {
     const pupil = eye.querySelector(".pupil");
@@ -37,7 +37,7 @@ function animateEyes() {
     const dx = currentX - eyeCenterX;
     const dy = currentY - eyeCenterY;
 
-    const maxDistance = 15;
+    const maxDistance = 12;
     const distance = Math.min(maxDistance, Math.sqrt(dx * dx + dy * dy));
     const angle = Math.atan2(dy, dx);
     const moveX = Math.cos(angle) * distance;
@@ -125,3 +125,53 @@ window.addEventListener("DOMContentLoaded", () => {
 backBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
+
+const faceContainer = document.querySelector(".character");
+
+let faceTargetX = 0;
+let faceTargetY = 0;
+let faceCurrentX = 0;
+let faceCurrentY = 0;
+
+let faceTargetRotate = 0;
+let faceCurrentRotate = 0;
+
+let velocityX = 0;
+let velocityY = 0;
+let velocityRotate = 0;
+
+const stiffness = 0.05;
+const damping = 0.8;
+
+document.addEventListener("mousemove", (e) => {
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+
+  faceTargetX = (e.clientX - centerX) * 0.02;
+  faceTargetY = (e.clientY - centerY) * 0.02;
+  faceTargetRotate = (e.clientX - centerX) * 0.01;
+});
+
+function animateFace() {
+  let forceX = (faceTargetX - faceCurrentX) * stiffness;
+  velocityX = velocityX * damping + forceX;
+  faceCurrentX += velocityX;
+
+  let forceY = (faceTargetY - faceCurrentY) * stiffness;
+  velocityY = velocityY * damping + forceY;
+  faceCurrentY += velocityY;
+
+  let forceR = (faceTargetRotate - faceCurrentRotate) * stiffness;
+  velocityRotate = velocityRotate * damping + forceR;
+  faceCurrentRotate += velocityRotate;
+
+  if (faceContainer) {
+    faceContainer.style.transform = `
+      translate(${faceCurrentX}px, ${faceCurrentY}px)
+      rotate(${faceCurrentRotate}deg)
+    `;
+  }
+
+  requestAnimationFrame(animateFace);
+}
+animateFace();
