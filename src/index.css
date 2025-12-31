@@ -38,6 +38,8 @@ html,
 body {
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
   background-color: var(--bg-primary);
   overflow: hidden;
   font-family: Arial, sans-serif;
@@ -52,7 +54,9 @@ body {
 #root {
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   touch-action: manipulation;
+  position: relative;
 }
 
 

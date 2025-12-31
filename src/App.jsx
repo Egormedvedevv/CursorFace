@@ -3,6 +3,7 @@ import StartPage from './pages/StartPage'
 import MainPage from './pages/MainPage'
 
 function App() {
+  console.log('App component rendering')
   try {
     return (
       <Routes>

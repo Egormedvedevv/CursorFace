@@ -15,6 +15,7 @@ if (!rootElement) {
   console.log('Root element found, rendering...')
   try {
     const root = ReactDOM.createRoot(rootElement)
+    console.log('React root created')
     root.render(
       <ErrorBoundary>
         <BrowserRouter>
