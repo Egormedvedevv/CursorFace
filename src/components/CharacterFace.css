@@ -1,0 +1,198 @@
+.character {
+  position: relative;
+  display: inline-block;
+}
+
+.main-face {
+  width: min(700px, 85vw);
+  height: min(700px, 85vw);
+  max-width: 700px;
+  max-height: 700px;
+  border-radius: 16px;
+  user-select: none;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+}
+
+.eye {
+  position: absolute;
+  width: min(750px, 91vw);
+  height: min(750px, 91vw);
+  max-width: 750px;
+  max-height: 750px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.eye-left {
+  top: 120px;
+  left: -100px;
+}
+
+.eye-right {
+  top: 120px;
+  left: 107px;
+}
+
+.eye-white {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pupil {
+  position: absolute;
+  width: min(700px, 85vw);
+  height: min(700px, 85vw);
+  max-width: 700px;
+  max-height: 700px;
+  transition: transform 0.15s ease-out;
+  z-index: 2;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.pupil-left {
+  top: -115px;
+  left: 100px;
+}
+
+.pupil-right {
+  top: -115px;
+  left: 100px;
+}
+
+@media (max-width: 768px) {
+  /* Персонаж 1 */
+  .character[data-character-id="1"] .eye-left {
+    top: clamp(70px, 14vw, 100px) !important;
+    left: clamp(-60px, -12vw, -80px) !important;
+  }
+
+  .character[data-character-id="1"] .eye-right {
+    top: clamp(70px, 14vw, 100px) !important;
+    left: clamp(60px, 12vw, 80px) !important;
+  }
+
+  .character[data-character-id="1"] .pupil-left {
+    top: clamp(-60px, -12vw, -80px) !important;
+    left: clamp(60px, 12vw, 80px) !important;
+  }
+
+  .character[data-character-id="1"] .pupil-right {
+    top: clamp(-60px, -12vw, -80px) !important;
+    left: clamp(70px, 14vw, 90px) !important;
+  }
+
+  /* Персонаж 2 */
+  .character[data-character-id="2"] .eye-left {
+    top: clamp(-15px, -3vw, -10px) !important;
+    left: clamp(-20px, -4vw, -25px) !important;
+  }
+
+  .character[data-character-id="2"] .eye-right {
+    top: clamp(-8px, -1.5vw, -5px) !important;
+    left: clamp(130px, 26vw, 170px) !important;
+  }
+
+  .character[data-character-id="2"] .pupil-left {
+    top: clamp(12px, 2.5vw, 18px) !important;
+    left: clamp(12px, 2.5vw, 18px) !important;
+  }
+
+  .character[data-character-id="2"] .pupil-right {
+    top: clamp(12px, 2.5vw, 18px) !important;
+    left: clamp(12px, 2.5vw, 18px) !important;
+  }
+
+  /* Персонаж 3 */
+  .character[data-character-id="3"] .eye-left {
+    top: clamp(-18px, -3.5vw, -15px) !important;
+    left: clamp(-20px, -4vw, -25px) !important;
+  }
+
+  .character[data-character-id="3"] .eye-right {
+    top: clamp(-18px, -3.5vw, -15px) !important;
+    left: clamp(-15px, -3vw, -12px) !important;
+  }
+
+  .character[data-character-id="3"] .pupil-left {
+    top: clamp(12px, 2.5vw, 18px) !important;
+    left: clamp(6px, 1.2vw, 10px) !important;
+  }
+
+  .character[data-character-id="3"] .pupil-right {
+    top: clamp(12px, 2.5vw, 18px) !important;
+    left: clamp(18px, 3.5vw, 25px) !important;
+  }
+
+  /* Персонаж 4 */
+  .character[data-character-id="4"] .eye-left {
+    top: clamp(-15px, -3vw, -12px) !important;
+    left: clamp(-10px, -2vw, -12px) !important;
+  }
+
+  .character[data-character-id="4"] .eye-right {
+    top: clamp(-10px, -2vw, -8px) !important;
+    left: clamp(-25px, -5vw, -30px) !important;
+  }
+
+  .character[data-character-id="4"] .pupil-left {
+    top: clamp(12px, 2.5vw, 18px) !important;
+    left: clamp(8px, 1.5vw, 12px) !important;
+  }
+
+  .character[data-character-id="4"] .pupil-right {
+    top: clamp(12px, 2.5vw, 18px) !important;
+    left: clamp(18px, 3.5vw, 25px) !important;
+  }
+
+  /* Персонаж 5 */
+  .character[data-character-id="5"] .eye-left {
+    top: clamp(-15px, -3vw, -12px) !important;
+    left: clamp(-18px, -3.5vw, -22px) !important;
+  }
+
+  .character[data-character-id="5"] .eye-right {
+    top: clamp(-10px, -2vw, -8px) !important;
+    left: clamp(-25px, -5vw, -30px) !important;
+  }
+
+  .character[data-character-id="5"] .pupil-left {
+    top: clamp(12px, 2.5vw, 18px) !important;
+    left: clamp(12px, 2.5vw, 18px) !important;
+  }
+
+  .character[data-character-id="5"] .pupil-right {
+    top: clamp(12px, 2.5vw, 18px) !important;
+    left: clamp(18px, 3.5vw, 25px) !important;
+  }
+
+  /* Персонаж 6 */
+  .character[data-character-id="6"] .eye-left {
+    top: clamp(-15px, -3vw, -12px) !important;
+    left: clamp(-15px, -3vw, -18px) !important;
+  }
+
+  .character[data-character-id="6"] .eye-right {
+    top: clamp(-10px, -2vw, -8px) !important;
+    left: clamp(-25px, -5vw, -30px) !important;
+  }
+
+  .character[data-character-id="6"] .pupil-left {
+    top: clamp(12px, 2.5vw, 18px) !important;
+    left: clamp(12px, 2.5vw, 18px) !important;
+  }
+
+  .character[data-character-id="6"] .pupil-right {
+    top: clamp(12px, 2.5vw, 18px) !important;
+    left: clamp(18px, 3.5vw, 25px) !important;
+  }
+}
+
+

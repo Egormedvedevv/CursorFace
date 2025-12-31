@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CursorFace</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="icon" href="images/favicon.png" />
+  </head>
+  <body>
+    <img
+      src="images/back-to-start.png"
+      alt="Back to Start"
+      id="back-to-start-btn"
+      style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        z-index: 1100;
+      "
+    />
+
+    <div id="screen-fader"></div>
+
+    <div class="character-switcher">
+      <div class="tab">
+        <img
+          src="images/charmenu.png"
+          alt="Иконка меню"
+          class="chimg"
+        />
+      </div>
+      <div class="menu">
+        <img
+          src="images/char1.png"
+          data-char="1"
+          data-face="images/mainface.png"
+          data-eye-left="images/eye-white-left.png"
+          data-eye-right="images/eye-white-right.png"
+          data-pupil-left="images/pupil-left.png"
+          data-pupil-right="images/pupil-right.png"
+          data-eye-left-top="120"
+          data-eye-left-left="-100"
+          data-eye-right-top="120"
+          data-eye-right-left="107"
+          data-pupil-left-top="-115"
+          data-pupil-left-left="100"
+          data-pupil-right-top="-115"
+          data-pupil-right-left="100"
+          alt="Персонаж 1"
+          class="active"
+        />
+
+        <img
+          src="images/char2.png"
+          data-char="2"
+          data-face="images/secondface.png"
+          data-eye-left="images/eye-white-l2.png"
+          data-eye-right="images/eye-white-r2.png"
+          data-pupil-left="images/pupil-left-2.png"
+          data-pupil-right="images/pupil-right-2.png"
+          data-eye-left-top="-20"
+          data-eye-left-left="-30"
+          data-eye-right-top="-12"
+          data-eye-right-left="217"
+          data-pupil-left-top="20"
+          data-pupil-left-left="20"
+          data-pupil-right-top="20"
+          data-pupil-right-left="20"
+          alt="Персонаж 2"
+        />
+
+        <img
+          src="images/char3.png"
+          data-char="3"
+          data-face="images/thirdface.png"
+          data-eye-left="images/eye-white-l3.png"
+          data-eye-right="images/eye-white-r3.png"
+          data-pupil-left="images/pupil-left-3.png"
+          data-pupil-right="images/pupil-right-3.png"
+          data-eye-left-top="-25"
+          data-eye-left-left="-30"
+          data-eye-right-top="-25"
+          data-eye-right-left="-20"
+          data-pupil-left-top="20"
+          data-pupil-left-left="10"
+          data-pupil-right-top="20"
+          data-pupil-right-left="30"
+          alt="Персонаж 3"
+        />
+
+        <img
+          src="images/char4.png"
+          data-char="4"
+          data-face="images/fourthface.png"
+          data-eye-left="images/eye-white-l4.png"
+          data-eye-right="images/eye-white-r4.png"
+          data-pupil-left="images/pupil-left-4.png"
+          data-pupil-right="images/pupil-right-4.png"
+          data-eye-left-top="-20"
+          data-eye-left-left="-15"
+          data-eye-right-top="-15"
+          data-eye-right-left="-35"
+          data-pupil-left-top="20"
+          data-pupil-left-left="12"
+          data-pupil-right-top="20"
+          data-pupil-right-left="30"
+          alt="Персонаж 4"
+        />
+
+        <img
+          src="images/char5.png"
+          data-char="5"
+          data-face="images/fifthface.png"
+          data-eye-left="images/eye-white-l5.png"
+          data-eye-right="images/eye-white-r5.png"
+          data-pupil-left="images/pupil-left-5.png"
+          data-pupil-right="images/pupil-right-5.png"
+          data-eye-left-top="-20"
+          data-eye-left-left="-26"
+          data-eye-right-top="-15"
+          data-eye-right-left="-35"
+          data-pupil-left-top="20"
+          data-pupil-left-left="20"
+          data-pupil-right-top="20"
+          data-pupil-right-left="30"
+          alt="Персонаж 5"
+        />
+
+        <img
+          src="images/char6.png"
+          data-char="6"
+          data-face="images/sixthface.png"
+          data-eye-left="images/eye-white-l6.png"
+          data-eye-right="images/eye-white-r6.png"
+          data-pupil-left="images/pupil-left-6.png"
+          data-pupil-right="images/pupil-right-6.png"
+          data-eye-left-top="-20"
+          data-eye-left-left="-20"
+          data-eye-right-top="-15"
+          data-eye-right-left="-35"
+          data-pupil-left-top="20"
+          data-pupil-left-left="20"
+          data-pupil-right-top="20"
+          data-pupil-right-left="30"
+          alt="Персонаж 6"
+        />
+      </div>
+    </div>
+
+    <main>
+      <div class="character">
+        <img
+          src="images/mainface.png"
+          alt="Основное лицо"
+          id="main-face"
+        />
+
+        <div class="eye eye-left" id="left-eye">
+          <img
+            src="images/eye-white-left.png"
+            class="eye-white"
+          />
+          <img
+            src="images/pupil-left.png"
+            class="pupil pupil-left"
+          />
+        </div>
+
+        <div class="eye eye-right" id="right-eye">
+          <img
+            src="images/eye-white-right.png"
+            class="eye-white"
+          />
+          <img
+            src="images/pupil-right.png"
+            class="pupil pupil-right"
+          />
+        </div>
+      </div>
+
+      <div class="speech" id="speech"></div>
+    </main>
+
+    <footer>
+      <img
+        src="images/logo.png"
+        alt="Cursorface logo"
+        class="logo"
+      />
+      <img src="images/bymd.png" alt="Bymd" class="bymd" loading="lazy" />
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
