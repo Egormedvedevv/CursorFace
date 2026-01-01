@@ -30,6 +30,8 @@ export default function MainPage() {
 
   const handleCharacterChange = (character) => {
     setIsFading(true)
+    // Update URL with new character
+    navigate(`/main?char=${character.id}`, { replace: true })
     setTimeout(() => {
       setCurrentCharacter(character)
       setIsFading(false)

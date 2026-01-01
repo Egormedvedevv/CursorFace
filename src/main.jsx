@@ -18,7 +18,7 @@ if (!rootElement) {
     console.log('React root created')
     root.render(
       <ErrorBoundary>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
           <App />
         </BrowserRouter>
       </ErrorBoundary>

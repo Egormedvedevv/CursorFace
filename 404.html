@@ -9,31 +9,38 @@
       // This script takes the current url and converts the path and query
       // string into just a query string, and then redirects the browser
       // to the new url with only a query string and hash fragment,
-      // e.g. https://www.foo.tld/one/two?a=b&c=d#qwe, becomes
-      // https://www.foo.tld/?/one/two&a=b~and~c=d#qwe
+      // e.g. https://username.github.io/CursorFace/main?char=1 becomes
+      // https://username.github.io/CursorFace/?/main&char=1
       // Note: this 404.html file must be at least 512 bytes for it to work
       // with Internet Explorer (it is currently > 512 bytes)
 
-      // If you're creating a Project Pages site and NOT using a custom domain,
-      // then set segmentCount to 1 (enterprise users may need to set it to > 1).
-      // This way the code will only replace the route part and not the real directory.
-      // For example, if your site URL is https://username.github.io/repo-name,
-      // and your repo is 'repo-name', then set segmentCount to 1.
-      // If you have a custom domain, do NOT set segmentCount.
-      var segmentCount = 1;
+      // For GitHub Pages with base path /CursorFace/, we need to preserve the base path
+      var segmentCount = 1; // This will preserve /CursorFace in the path
 
       var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?/' +
-        l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
-
+      var path = l.pathname;
+      
+      // If path starts with /CursorFace, extract everything after it
+      if (path.startsWith('/CursorFace')) {
+        var pathAfterBase = path.slice('/CursorFace'.length) || '/';
+        var redirectPath = '/CursorFace/?/' + pathAfterBase.slice(1).replace(/&/g, '~and~');
+        if (l.search) {
+          redirectPath += '&' + l.search.slice(1).replace(/&/g, '~and~');
+        }
+        redirectPath += l.hash;
+        l.replace(l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + redirectPath);
+      } else {
+        // Fallback: use standard SPA redirect
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?/' +
+          l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+        );
+      }
     </script>
   </head>
   <body>
   </body>
 </html>
-
