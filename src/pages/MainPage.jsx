@@ -24,18 +24,17 @@ export default function MainPage() {
     const charId = searchParams.get('char') || '1'
     const character = characters.find((c) => c.id === charId) || characters[0]
     if (character.id !== currentCharacter.id) {
-      setCurrentCharacter(character)
+      setIsFading(true)
+      setTimeout(() => {
+        setCurrentCharacter(character)
+        setIsFading(false)
+      }, 250)
     }
-  }, [searchParams, currentCharacter.id])
+  }, [searchParams])
 
   const handleCharacterChange = (character) => {
-    setIsFading(true)
-    // Update URL with new character
+    // Update URL with new character - this will trigger useEffect to update the character
     navigate(`/main?char=${character.id}`, { replace: true })
-    setTimeout(() => {
-      setCurrentCharacter(character)
-      setIsFading(false)
-    }, 250)
   }
 
   const handleBackClick = () => {
