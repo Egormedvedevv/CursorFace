@@ -23,13 +23,16 @@ export default function MainPage() {
   useEffect(() => {
     const charId = searchParams.get('char') || '1'
     const character = characters.find((c) => c.id === charId) || characters[0]
-    if (character.id !== currentCharacter.id) {
-      setIsFading(true)
-      setTimeout(() => {
-        setCurrentCharacter(character)
-        setIsFading(false)
-      }, 250)
-    }
+    setCurrentCharacter((prevCharacter) => {
+      if (character.id !== prevCharacter.id) {
+        setIsFading(true)
+        setTimeout(() => {
+          setIsFading(false)
+        }, 250)
+        return character
+      }
+      return prevCharacter
+    })
   }, [searchParams])
 
   const handleCharacterChange = (character) => {
