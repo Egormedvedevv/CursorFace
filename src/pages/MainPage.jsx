@@ -9,15 +9,24 @@ import './MainPage.css'
 export default function MainPage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const [currentCharacter, setCurrentCharacter] = useState(characters[0])
   const [isFading, setIsFading] = useState(false)
   const faceTransform = useFaceAnimation()
+
+  // Инициализация персонажа из URL параметров сразу при монтировании
+  const getInitialCharacter = () => {
+    const charId = searchParams.get('char') || '1'
+    return characters.find((c) => c.id === charId) || characters[0]
+  }
+
+  const [currentCharacter, setCurrentCharacter] = useState(() => getInitialCharacter())
 
   useEffect(() => {
     const charId = searchParams.get('char') || '1'
     const character = characters.find((c) => c.id === charId) || characters[0]
-    setCurrentCharacter(character)
-  }, [searchParams])
+    if (character.id !== currentCharacter.id) {
+      setCurrentCharacter(character)
+    }
+  }, [searchParams, currentCharacter.id])
 
   const handleCharacterChange = (character) => {
     setIsFading(true)

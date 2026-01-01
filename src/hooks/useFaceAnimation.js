@@ -125,6 +125,7 @@ export function useFaceAnimation() {
   }, [])
 
   useEffect(() => {
+    // Запускаем анимацию сразу при монтировании
     const animate = () => {
       // Плавное движение по X
       const forceX = (targetPosition.x - currentRef.current.x) * stiffness
@@ -163,12 +164,14 @@ export function useFaceAnimation() {
       animationFrameRef.current = requestAnimationFrame(animate)
     }
 
+    // Запускаем анимацию немедленно
     animationFrameRef.current = requestAnimationFrame(animate)
 
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
+    }
     }
   }, [targetPosition])
 
