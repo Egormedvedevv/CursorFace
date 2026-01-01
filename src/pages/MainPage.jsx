@@ -23,21 +23,26 @@ export default function MainPage() {
   useEffect(() => {
     const charId = searchParams.get('char') || '1'
     const character = characters.find((c) => c.id === charId) || characters[0]
-    setCurrentCharacter((prevCharacter) => {
-      if (character.id !== prevCharacter.id) {
-        setIsFading(true)
-        setTimeout(() => {
-          setIsFading(false)
-        }, 250)
-        return character
-      }
-      return prevCharacter
-    })
+    if (character && character.id !== currentCharacter.id) {
+      setIsFading(true)
+      setTimeout(() => {
+        setCurrentCharacter(character)
+        setIsFading(false)
+      }, 250)
+    }
   }, [searchParams])
 
   const handleCharacterChange = (character) => {
-    // Update URL with new character - this will trigger useEffect to update the character
+    if (character.id === currentCharacter.id) return
+    
+    setIsFading(true)
+    // Update URL with new character
     navigate(`/main?char=${character.id}`, { replace: true })
+    // Update character immediately
+    setTimeout(() => {
+      setCurrentCharacter(character)
+      setIsFading(false)
+    }, 250)
   }
 
   const handleBackClick = () => {
