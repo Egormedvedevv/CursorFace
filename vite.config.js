@@ -6,7 +6,8 @@ export default defineConfig({
   publicDir: 'public',
   base: '/CursorFace/',
   build: {
-    outDir: 'dist',
+    outDir: '.',
     assetsDir: 'assets',
+    emptyOutDir: false,
   },
 })
