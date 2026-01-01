@@ -142,7 +142,7 @@ export default function StartPage() {
 
       <img
         ref={logoRef}
-        src="/startimgs/logo.png"
+        src={`${import.meta.env.BASE_URL}startimgs/logo.png`}
         className="start-logo"
         alt="CursorFace Logo"
         style={{

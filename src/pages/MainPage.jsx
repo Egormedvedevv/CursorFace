@@ -43,7 +43,7 @@ export default function MainPage() {
   return (
     <div className="main-page">
       <img
-        src="/images/back-to-start.png"
+        src={`${import.meta.env.BASE_URL}images/back-to-start.png`}
         alt="Back to Start"
         className="back-to-start-btn"
         onClick={handleBackClick}
@@ -70,13 +70,13 @@ export default function MainPage() {
 
       <footer>
         <img 
-          src="/images/logo.png" 
+          src={`${import.meta.env.BASE_URL}images/logo.png`}
           alt="Cursorface logo" 
           className="logo" 
           onClick={handleBackClick}
           style={{ cursor: 'pointer' }}
         />
-        <img src="/images/bymd.png" alt="Bymd" className="bymd" loading="lazy" />
+        <img src={`${import.meta.env.BASE_URL}images/bymd.png`} alt="Bymd" className="bymd" loading="lazy" />
       </footer>
     </div>
   )

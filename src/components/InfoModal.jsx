@@ -36,7 +36,7 @@ export default function InfoModal() {
         aria-label="Info"
         onClick={() => setIsOpen(true)}
       >
-        <img src="/startimgs/i.png" alt="Info" loading="lazy" />
+        <img src={`${import.meta.env.BASE_URL}startimgs/i.png`} alt="Info" loading="lazy" />
       </button>
 
       {isOpen && (
@@ -86,7 +86,7 @@ export default function InfoModal() {
             </div>
 
             <div className="bymd-logo">
-              <img src="/images/bymd.png" alt="Bymd" />
+              <img src={`${import.meta.env.BASE_URL}images/bymd.png`} alt="Bymd" />
             </div>
           </div>
         </div>

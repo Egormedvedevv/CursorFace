@@ -40,7 +40,7 @@ export default function CharacterSwitcher({ onCharacterChange, currentCharacterI
       className={`character-switcher ${menuOpen ? 'touched' : ''}`}
     >
       <div className="tab" onClick={handleTabClick}>
-        <img src="/images/charmenu.png" alt="Иконка меню" className="chimg" />
+        <img src={`${import.meta.env.BASE_URL}images/charmenu.png`} alt="Иконка меню" className="chimg" />
       </div>
       <div className={`menu ${menuOpen ? 'open' : ''}`}>
         {characters.map((char) => (
