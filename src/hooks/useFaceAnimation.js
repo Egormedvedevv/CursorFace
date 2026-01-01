@@ -172,7 +172,6 @@ export function useFaceAnimation() {
         cancelAnimationFrame(animationFrameRef.current)
       }
     }
-    }
   }, [targetPosition])
 
   return transform
