@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -59,9 +59,10 @@
 .mobile-logo-top {
   position: relative;
   z-index: 10;
-  margin-bottom: 30px;
+  margin-top: 20px;
   width: clamp(200px, 60vw, 300px);
   height: auto;
+  flex-shrink: 0;
 }
 
 .mobile-logo-top img {
@@ -73,14 +74,12 @@
 .mobile-message-box {
   position: relative;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  padding: 20px 30px;
-  margin: 20px 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
   max-width: 90%;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .mobile-message-text {
@@ -99,18 +98,15 @@
   z-index: 5;
   width: clamp(80px, 25vw, 120px);
   height: auto;
+  bottom: 80px;
 }
 
 .mobile-character-left {
   left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .mobile-character-right {
   right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .mobile-character-left img,
@@ -128,13 +124,13 @@
 
 @keyframes shake {
   0% {
-    transform: translateY(-50%) rotate(-3deg) translateX(-2px);
+    transform: rotate(-3deg) translateX(-2px);
   }
   50% {
-    transform: translateY(-50%) rotate(0deg) translateX(0px);
+    transform: rotate(0deg) translateX(0px);
   }
   100% {
-    transform: translateY(-50%) rotate(3deg) translateX(2px);
+    transform: rotate(3deg) translateX(2px);
   }
 }
 
@@ -146,6 +142,7 @@
   z-index: 10;
   width: clamp(100px, 30vw, 150px);
   height: auto;
+  flex-shrink: 0;
 }
 
 .mobile-logo-bottom img {
@@ -167,6 +164,7 @@
   .mobile-character-left,
   .mobile-character-right {
     width: clamp(60px, 20vw, 100px);
+    bottom: 70px;
   }
 
   .mobile-character-left {
@@ -175,6 +173,10 @@
 
   .mobile-character-right {
     right: 5px;
+  }
+
+  .mobile-logo-bottom {
+    bottom: 20px;
   }
 }
 
