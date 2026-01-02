@@ -310,7 +310,7 @@
   }
 
   .char-buttons {
-    gap: 15px;
+    gap: 12px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }
@@ -319,7 +319,7 @@
     width: 100%;
     height: auto;
     aspect-ratio: 1;
-    max-width: 90px;
+    max-width: 70px;
   }
 
   html,

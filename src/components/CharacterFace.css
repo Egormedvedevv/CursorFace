@@ -70,128 +70,152 @@
 @media (max-width: 768px) {
   /* Персонаж 1 */
   .character[data-character-id="1"] .eye-left {
-    top: clamp(70px, 14vw, 100px) !important;
-    left: clamp(-60px, -12vw, -80px) !important;
+    top: clamp(80px, 16vw, 110px) !important;
+    left: clamp(-70px, -14vw, -90px) !important;
   }
 
   .character[data-character-id="1"] .eye-right {
-    top: clamp(70px, 14vw, 100px) !important;
-    left: clamp(60px, 12vw, 80px) !important;
+    top: clamp(80px, 16vw, 110px) !important;
+    left: clamp(70px, 14vw, 90px) !important;
   }
 
   .character[data-character-id="1"] .pupil-left {
-    top: clamp(-60px, -12vw, -80px) !important;
-    left: clamp(60px, 12vw, 80px) !important;
+    top: clamp(-70px, -14vw, -90px) !important;
+    left: clamp(70px, 14vw, 90px) !important;
   }
 
   .character[data-character-id="1"] .pupil-right {
-    top: clamp(-60px, -12vw, -80px) !important;
-    left: clamp(70px, 14vw, 90px) !important;
+    top: clamp(-70px, -14vw, -90px) !important;
+    left: clamp(80px, 16vw, 100px) !important;
   }
 
   /* Персонаж 2 */
   .character[data-character-id="2"] .eye-left {
-    top: clamp(-15px, -3vw, -10px) !important;
-    left: clamp(-20px, -4vw, -25px) !important;
+    top: clamp(-18px, -3.5vw, -12px) !important;
+    left: clamp(-22px, -4.5vw, -28px) !important;
   }
 
   .character[data-character-id="2"] .eye-right {
-    top: clamp(-8px, -1.5vw, -5px) !important;
-    left: clamp(130px, 26vw, 170px) !important;
+    top: clamp(-10px, -2vw, -6px) !important;
+    left: clamp(140px, 28vw, 180px) !important;
   }
 
   .character[data-character-id="2"] .pupil-left {
-    top: clamp(12px, 2.5vw, 18px) !important;
-    left: clamp(12px, 2.5vw, 18px) !important;
+    top: clamp(15px, 3vw, 20px) !important;
+    left: clamp(15px, 3vw, 20px) !important;
   }
 
   .character[data-character-id="2"] .pupil-right {
-    top: clamp(12px, 2.5vw, 18px) !important;
-    left: clamp(12px, 2.5vw, 18px) !important;
+    top: clamp(15px, 3vw, 20px) !important;
+    left: clamp(15px, 3vw, 20px) !important;
   }
 
   /* Персонаж 3 */
   .character[data-character-id="3"] .eye-left {
-    top: clamp(-18px, -3.5vw, -15px) !important;
-    left: clamp(-20px, -4vw, -25px) !important;
+    top: clamp(-20px, -4vw, -16px) !important;
+    left: clamp(-22px, -4.5vw, -28px) !important;
   }
 
   .character[data-character-id="3"] .eye-right {
-    top: clamp(-18px, -3.5vw, -15px) !important;
-    left: clamp(-15px, -3vw, -12px) !important;
+    top: clamp(-20px, -4vw, -16px) !important;
+    left: clamp(-18px, -3.5vw, -14px) !important;
   }
 
   .character[data-character-id="3"] .pupil-left {
-    top: clamp(12px, 2.5vw, 18px) !important;
-    left: clamp(6px, 1.2vw, 10px) !important;
+    top: clamp(15px, 3vw, 20px) !important;
+    left: clamp(8px, 1.5vw, 12px) !important;
   }
 
   .character[data-character-id="3"] .pupil-right {
-    top: clamp(12px, 2.5vw, 18px) !important;
-    left: clamp(18px, 3.5vw, 25px) !important;
+    top: clamp(15px, 3vw, 20px) !important;
+    left: clamp(20px, 4vw, 28px) !important;
   }
 
   /* Персонаж 4 */
   .character[data-character-id="4"] .eye-left {
-    top: clamp(-15px, -3vw, -12px) !important;
-    left: clamp(-10px, -2vw, -12px) !important;
+    top: clamp(-18px, -3.5vw, -14px) !important;
+    left: clamp(-12px, -2.5vw, -14px) !important;
   }
 
   .character[data-character-id="4"] .eye-right {
-    top: clamp(-10px, -2vw, -8px) !important;
-    left: clamp(-25px, -5vw, -30px) !important;
+    top: clamp(-12px, -2.5vw, -10px) !important;
+    left: clamp(-28px, -5.5vw, -35px) !important;
   }
 
   .character[data-character-id="4"] .pupil-left {
-    top: clamp(12px, 2.5vw, 18px) !important;
-    left: clamp(8px, 1.5vw, 12px) !important;
+    top: clamp(15px, 3vw, 20px) !important;
+    left: clamp(10px, 2vw, 14px) !important;
   }
 
   .character[data-character-id="4"] .pupil-right {
-    top: clamp(12px, 2.5vw, 18px) !important;
-    left: clamp(18px, 3.5vw, 25px) !important;
+    top: clamp(15px, 3vw, 20px) !important;
+    left: clamp(20px, 4vw, 28px) !important;
   }
 
   /* Персонаж 5 */
   .character[data-character-id="5"] .eye-left {
-    top: clamp(-15px, -3vw, -12px) !important;
-    left: clamp(-18px, -3.5vw, -22px) !important;
+    top: clamp(-18px, -3.5vw, -14px) !important;
+    left: clamp(-20px, -4vw, -25px) !important;
   }
 
   .character[data-character-id="5"] .eye-right {
-    top: clamp(-10px, -2vw, -8px) !important;
-    left: clamp(-25px, -5vw, -30px) !important;
+    top: clamp(-12px, -2.5vw, -10px) !important;
+    left: clamp(-28px, -5.5vw, -35px) !important;
   }
 
   .character[data-character-id="5"] .pupil-left {
-    top: clamp(12px, 2.5vw, 18px) !important;
-    left: clamp(12px, 2.5vw, 18px) !important;
+    top: clamp(15px, 3vw, 20px) !important;
+    left: clamp(15px, 3vw, 20px) !important;
   }
 
   .character[data-character-id="5"] .pupil-right {
-    top: clamp(12px, 2.5vw, 18px) !important;
-    left: clamp(18px, 3.5vw, 25px) !important;
+    top: clamp(15px, 3vw, 20px) !important;
+    left: clamp(20px, 4vw, 28px) !important;
   }
 
   /* Персонаж 6 */
   .character[data-character-id="6"] .eye-left {
-    top: clamp(-15px, -3vw, -12px) !important;
-    left: clamp(-15px, -3vw, -18px) !important;
+    top: clamp(-18px, -3.5vw, -14px) !important;
+    left: clamp(-18px, -3.5vw, -20px) !important;
   }
 
   .character[data-character-id="6"] .eye-right {
-    top: clamp(-10px, -2vw, -8px) !important;
-    left: clamp(-25px, -5vw, -30px) !important;
+    top: clamp(-12px, -2.5vw, -10px) !important;
+    left: clamp(-28px, -5.5vw, -35px) !important;
   }
 
   .character[data-character-id="6"] .pupil-left {
-    top: clamp(12px, 2.5vw, 18px) !important;
-    left: clamp(12px, 2.5vw, 18px) !important;
+    top: clamp(15px, 3vw, 20px) !important;
+    left: clamp(15px, 3vw, 20px) !important;
   }
 
   .character[data-character-id="6"] .pupil-right {
-    top: clamp(12px, 2.5vw, 18px) !important;
-    left: clamp(18px, 3.5vw, 25px) !important;
+    top: clamp(15px, 3vw, 20px) !important;
+    left: clamp(20px, 4vw, 28px) !important;
+  }
+
+  /* Дополнительные стили для iPhone и других мобильных устройств */
+  @supports (-webkit-touch-callout: none) {
+    /* iOS устройства */
+    .character[data-character-id="1"] .eye-left {
+      top: 85px !important;
+      left: -75px !important;
+    }
+
+    .character[data-character-id="1"] .eye-right {
+      top: 85px !important;
+      left: 75px !important;
+    }
+
+    .character[data-character-id="1"] .pupil-left {
+      top: -75px !important;
+      left: 75px !important;
+    }
+
+    .character[data-character-id="1"] .pupil-right {
+      top: -75px !important;
+      left: 85px !important;
+    }
   }
 }
 
