@@ -68,36 +68,36 @@
 }
 
 @media (max-width: 768px) {
-  /* Персонаж 1 */
+  /* Персонаж 1 - левый глаз выше и правее, правый глаз и зрачок выше и левее */
   .character[data-character-id="1"] .eye-left {
-    top: clamp(80px, 16vw, 110px) !important;
-    left: clamp(-70px, -14vw, -90px) !important;
+    top: clamp(60px, 12vw, 85px) !important;
+    left: clamp(-50px, -10vw, -65px) !important;
   }
 
   .character[data-character-id="1"] .eye-right {
-    top: clamp(80px, 16vw, 110px) !important;
-    left: clamp(70px, 14vw, 90px) !important;
+    top: clamp(60px, 12vw, 85px) !important;
+    left: clamp(50px, 10vw, 65px) !important;
   }
 
   .character[data-character-id="1"] .pupil-left {
-    top: clamp(-70px, -14vw, -90px) !important;
-    left: clamp(70px, 14vw, 90px) !important;
+    top: clamp(-90px, -18vw, -110px) !important;
+    left: clamp(50px, 10vw, 65px) !important;
   }
 
   .character[data-character-id="1"] .pupil-right {
-    top: clamp(-70px, -14vw, -90px) !important;
-    left: clamp(80px, 16vw, 100px) !important;
+    top: clamp(-90px, -18vw, -110px) !important;
+    left: clamp(40px, 8vw, 55px) !important;
   }
 
-  /* Персонаж 2 */
+  /* Персонаж 2 - левый глаз немного правее, правый глаз левее */
   .character[data-character-id="2"] .eye-left {
     top: clamp(-18px, -3.5vw, -12px) !important;
-    left: clamp(-22px, -4.5vw, -28px) !important;
+    left: clamp(-15px, -3vw, -20px) !important;
   }
 
   .character[data-character-id="2"] .eye-right {
     top: clamp(-10px, -2vw, -6px) !important;
-    left: clamp(140px, 28vw, 180px) !important;
+    left: clamp(120px, 24vw, 160px) !important;
   }
 
   .character[data-character-id="2"] .pupil-left {
@@ -110,15 +110,15 @@
     left: clamp(15px, 3vw, 20px) !important;
   }
 
-  /* Персонаж 3 */
+  /* Персонаж 3 - оба глаза немного левее */
   .character[data-character-id="3"] .eye-left {
     top: clamp(-20px, -4vw, -16px) !important;
-    left: clamp(-22px, -4.5vw, -28px) !important;
+    left: clamp(-30px, -6vw, -38px) !important;
   }
 
   .character[data-character-id="3"] .eye-right {
     top: clamp(-20px, -4vw, -16px) !important;
-    left: clamp(-18px, -3.5vw, -14px) !important;
+    left: clamp(-28px, -5.5vw, -34px) !important;
   }
 
   .character[data-character-id="3"] .pupil-left {
@@ -131,7 +131,7 @@
     left: clamp(20px, 4vw, 28px) !important;
   }
 
-  /* Персонаж 4 */
+  /* Персонаж 4 - правый глаз немного правее */
   .character[data-character-id="4"] .eye-left {
     top: clamp(-18px, -3.5vw, -14px) !important;
     left: clamp(-12px, -2.5vw, -14px) !important;
@@ -139,7 +139,7 @@
 
   .character[data-character-id="4"] .eye-right {
     top: clamp(-12px, -2.5vw, -10px) !important;
-    left: clamp(-28px, -5.5vw, -35px) !important;
+    left: clamp(-20px, -4vw, -25px) !important;
   }
 
   .character[data-character-id="4"] .pupil-left {
@@ -152,15 +152,15 @@
     left: clamp(20px, 4vw, 28px) !important;
   }
 
-  /* Персонаж 5 */
+  /* Персонаж 5 - глаз чуть-чуть правее, совсем немного */
   .character[data-character-id="5"] .eye-left {
     top: clamp(-18px, -3.5vw, -14px) !important;
-    left: clamp(-20px, -4vw, -25px) !important;
+    left: clamp(-18px, -3.5vw, -22px) !important;
   }
 
   .character[data-character-id="5"] .eye-right {
     top: clamp(-12px, -2.5vw, -10px) !important;
-    left: clamp(-28px, -5.5vw, -35px) !important;
+    left: clamp(-26px, -5vw, -32px) !important;
   }
 
   .character[data-character-id="5"] .pupil-left {
@@ -173,15 +173,15 @@
     left: clamp(20px, 4vw, 28px) !important;
   }
 
-  /* Персонаж 6 */
+  /* Персонаж 6 - оба глаза немного правее */
   .character[data-character-id="6"] .eye-left {
     top: clamp(-18px, -3.5vw, -14px) !important;
-    left: clamp(-18px, -3.5vw, -20px) !important;
+    left: clamp(-12px, -2.5vw, -15px) !important;
   }
 
   .character[data-character-id="6"] .eye-right {
     top: clamp(-12px, -2.5vw, -10px) !important;
-    left: clamp(-28px, -5.5vw, -35px) !important;
+    left: clamp(-22px, -4.5vw, -28px) !important;
   }
 
   .character[data-character-id="6"] .pupil-left {
@@ -196,25 +196,25 @@
 
   /* Дополнительные стили для iPhone и других мобильных устройств */
   @supports (-webkit-touch-callout: none) {
-    /* iOS устройства */
+    /* iOS устройства - Персонаж 1 */
     .character[data-character-id="1"] .eye-left {
-      top: 85px !important;
-      left: -75px !important;
+      top: 60px !important;
+      left: -50px !important;
     }
 
     .character[data-character-id="1"] .eye-right {
-      top: 85px !important;
-      left: 75px !important;
+      top: 60px !important;
+      left: 50px !important;
     }
 
     .character[data-character-id="1"] .pupil-left {
-      top: -75px !important;
-      left: 75px !important;
+      top: -90px !important;
+      left: 50px !important;
     }
 
     .character[data-character-id="1"] .pupil-right {
-      top: -75px !important;
-      left: 85px !important;
+      top: -90px !important;
+      left: 40px !important;
     }
   }
 }
