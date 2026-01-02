@@ -14,7 +14,7 @@ function HashRedirect() {
   React.useEffect(() => {
     // Check if we have a hash that contains a path (from 404 redirect)
     const hash = window.location.hash
-    if (hash) {
+    if (hash && hash.length > 1) {
       // Hash format: #/path?query or #?query
       let path = hash.substring(1) // Remove the #
       
@@ -32,16 +32,25 @@ function HashRedirect() {
         path = path.substring(basePath.length)
       }
       
+      // Ensure path starts with /
+      if (path && !path.startsWith('/')) {
+        path = '/' + path
+      }
+      
       // Only redirect if we have a valid path
-      if (path && (path.startsWith('/') || path.startsWith('?'))) {
-        const fullPath = path.startsWith('/') ? path + queryString : '/' + path + queryString
+      if (path && path !== '/') {
+        const fullPath = path + queryString
         const currentPath = window.location.pathname + window.location.search
         const basePathClean = basePath || ''
         const currentPathClean = currentPath.startsWith(basePathClean) 
-          ? currentPath.substring(basePathClean.length) 
-          : currentPath
+          ? currentPath.substring(basePathClean.length) || '/' 
+          : currentPath || '/'
         
-        if (fullPath !== currentPathClean) {
+        // Normalize paths for comparison
+        const normalizedHashPath = fullPath.replace(/\/$/, '') || '/'
+        const normalizedCurrentPath = currentPathClean.replace(/\/$/, '') || '/'
+        
+        if (normalizedHashPath !== normalizedCurrentPath) {
           console.log('Redirecting from hash to:', fullPath)
           navigate(fullPath, { replace: true })
         }
