@@ -70,34 +70,34 @@
 @media (max-width: 768px) {
   /* Персонаж 1 - левый глаз выше и правее, правый глаз и зрачок выше и левее */
   .character[data-character-id="1"] .eye-left {
-    top: clamp(60px, 12vw, 85px) !important;
-    left: clamp(-50px, -10vw, -65px) !important;
+    top: clamp(100px, 20vw, 115px) !important;
+    left: clamp(-85px, -17vw, -95px) !important;
   }
 
   .character[data-character-id="1"] .eye-right {
-    top: clamp(60px, 12vw, 85px) !important;
-    left: clamp(50px, 10vw, 65px) !important;
+    top: clamp(100px, 20vw, 115px) !important;
+    left: clamp(85px, 17vw, 95px) !important;
   }
 
   .character[data-character-id="1"] .pupil-left {
-    top: clamp(-90px, -18vw, -110px) !important;
-    left: clamp(50px, 10vw, 65px) !important;
+    top: clamp(-105px, -21vw, -120px) !important;
+    left: clamp(85px, 17vw, 95px) !important;
   }
 
   .character[data-character-id="1"] .pupil-right {
-    top: clamp(-90px, -18vw, -110px) !important;
-    left: clamp(40px, 8vw, 55px) !important;
+    top: clamp(-105px, -21vw, -120px) !important;
+    left: clamp(75px, 15vw, 85px) !important;
   }
 
   /* Персонаж 2 - левый глаз немного правее, правый глаз левее */
   .character[data-character-id="2"] .eye-left {
-    top: clamp(-18px, -3.5vw, -12px) !important;
-    left: clamp(-15px, -3vw, -20px) !important;
+    top: clamp(-20px, -4vw, -12px) !important;
+    left: clamp(-25px, -5vw, -28px) !important;
   }
 
   .character[data-character-id="2"] .eye-right {
-    top: clamp(-10px, -2vw, -6px) !important;
-    left: clamp(120px, 24vw, 160px) !important;
+    top: clamp(-12px, -2.4vw, -6px) !important;
+    left: clamp(195px, 39vw, 210px) !important;
   }
 
   .character[data-character-id="2"] .pupil-left {
@@ -112,13 +112,13 @@
 
   /* Персонаж 3 - оба глаза немного левее */
   .character[data-character-id="3"] .eye-left {
-    top: clamp(-20px, -4vw, -16px) !important;
-    left: clamp(-30px, -6vw, -38px) !important;
+    top: clamp(-25px, -5vw, -16px) !important;
+    left: clamp(-35px, -7vw, -38px) !important;
   }
 
   .character[data-character-id="3"] .eye-right {
-    top: clamp(-20px, -4vw, -16px) !important;
-    left: clamp(-28px, -5.5vw, -34px) !important;
+    top: clamp(-25px, -5vw, -16px) !important;
+    left: clamp(-25px, -5vw, -28px) !important;
   }
 
   .character[data-character-id="3"] .pupil-left {
@@ -133,13 +133,13 @@
 
   /* Персонаж 4 - правый глаз немного правее */
   .character[data-character-id="4"] .eye-left {
-    top: clamp(-18px, -3.5vw, -14px) !important;
-    left: clamp(-12px, -2.5vw, -14px) !important;
+    top: clamp(-20px, -4vw, -14px) !important;
+    left: clamp(-15px, -3vw, -14px) !important;
   }
 
   .character[data-character-id="4"] .eye-right {
-    top: clamp(-12px, -2.5vw, -10px) !important;
-    left: clamp(-20px, -4vw, -25px) !important;
+    top: clamp(-15px, -3vw, -10px) !important;
+    left: clamp(-30px, -6vw, -32px) !important;
   }
 
   .character[data-character-id="4"] .pupil-left {
@@ -154,13 +154,13 @@
 
   /* Персонаж 5 - глаз чуть-чуть правее, совсем немного */
   .character[data-character-id="5"] .eye-left {
-    top: clamp(-18px, -3.5vw, -14px) !important;
-    left: clamp(-18px, -3.5vw, -22px) !important;
+    top: clamp(-20px, -4vw, -14px) !important;
+    left: clamp(-24px, -4.8vw, -28px) !important;
   }
 
   .character[data-character-id="5"] .eye-right {
-    top: clamp(-12px, -2.5vw, -10px) !important;
-    left: clamp(-26px, -5vw, -32px) !important;
+    top: clamp(-15px, -3vw, -10px) !important;
+    left: clamp(-33px, -6.6vw, -37px) !important;
   }
 
   .character[data-character-id="5"] .pupil-left {
@@ -175,13 +175,13 @@
 
   /* Персонаж 6 - оба глаза немного правее */
   .character[data-character-id="6"] .eye-left {
-    top: clamp(-18px, -3.5vw, -14px) !important;
-    left: clamp(-12px, -2.5vw, -15px) !important;
+    top: clamp(-20px, -4vw, -14px) !important;
+    left: clamp(-18px, -3.6vw, -22px) !important;
   }
 
   .character[data-character-id="6"] .eye-right {
-    top: clamp(-12px, -2.5vw, -10px) !important;
-    left: clamp(-22px, -4.5vw, -28px) !important;
+    top: clamp(-15px, -3vw, -10px) !important;
+    left: clamp(-32px, -6.4vw, -37px) !important;
   }
 
   .character[data-character-id="6"] .pupil-left {
@@ -198,23 +198,23 @@
   @supports (-webkit-touch-callout: none) {
     /* iOS устройства - Персонаж 1 */
     .character[data-character-id="1"] .eye-left {
-      top: 60px !important;
-      left: -50px !important;
+      top: 105px !important;
+      left: -88px !important;
     }
 
     .character[data-character-id="1"] .eye-right {
-      top: 60px !important;
-      left: 50px !important;
+      top: 105px !important;
+      left: 88px !important;
     }
 
     .character[data-character-id="1"] .pupil-left {
-      top: -90px !important;
-      left: 50px !important;
+      top: -110px !important;
+      left: 88px !important;
     }
 
     .character[data-character-id="1"] .pupil-right {
-      top: -90px !important;
-      left: 40px !important;
+      top: -110px !important;
+      left: 78px !important;
     }
   }
 }
