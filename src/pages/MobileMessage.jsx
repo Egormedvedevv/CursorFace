@@ -34,7 +34,7 @@ export default function MobileMessage() {
         />
       </div>
 
-      {/* Плашка с текстом по центру */}
+      {/* Текст по центру */}
       <div className="mobile-message-box">
         <p className="mobile-message-text">
           {isTranslating ? englishText : originalText}
