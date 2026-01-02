@@ -74,21 +74,24 @@
 .mobile-message-box {
   position: relative;
   z-index: 10;
-  flex: 1;
+  flex: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   max-width: 90%;
+  margin-top: 40px;
+  margin-bottom: auto;
 }
 
 .mobile-message-text {
   font-family: 'Helvetica', Arial, sans-serif;
   font-style: italic;
-  font-size: clamp(16px, 4vw, 20px);
+  font-weight: bold;
+  font-size: clamp(24px, 7vw, 36px);
   color: #fff;
   text-align: center;
-  line-height: 1.6;
+  line-height: 1.4;
   margin: 0;
 }
 
