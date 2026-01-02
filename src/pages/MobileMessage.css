@@ -158,10 +158,11 @@
 @media (max-width: 375px) {
   .mobile-message-box {
     padding: 15px 20px;
+    margin-top: 30px;
   }
 
   .mobile-message-text {
-    font-size: 14px;
+    font-size: clamp(20px, 6vw, 28px);
   }
 
   .mobile-character-left,
