@@ -154,6 +154,11 @@ footer .bymd:hover {
   opacity: 1;
 }
 
+footer a {
+  text-decoration: none;
+  display: inline-block;
+}
+
 @media (max-width: 768px) {
   footer .bymd {
     height: 40px;

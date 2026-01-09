@@ -163,6 +163,12 @@
   opacity: 1;
 }
 
+.bymd-logo a {
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
 .bymd-logo img {
   height: 40px;
   width: auto;

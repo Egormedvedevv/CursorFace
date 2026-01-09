@@ -59,10 +59,12 @@ export default function MobileMessage() {
 
       {/* Логотип BYMD снизу по центру */}
       <div className="mobile-logo-bottom">
-        <img 
-          src={`${import.meta.env.BASE_URL}images/bymd.png`} 
-          alt="BYMD" 
-        />
+        <a href="https://www.bymd.site" target="_blank" rel="noopener noreferrer">
+          <img 
+            src={`${import.meta.env.BASE_URL}images/bymd.png`} 
+            alt="BYMD" 
+          />
+        </a>
       </div>
     </div>
   )

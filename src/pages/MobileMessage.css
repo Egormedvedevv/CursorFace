@@ -148,6 +148,12 @@
   flex-shrink: 0;
 }
 
+.mobile-logo-bottom a {
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
 .mobile-logo-bottom img {
   width: 100%;
   height: auto;

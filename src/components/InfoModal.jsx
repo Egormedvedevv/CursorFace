@@ -86,7 +86,9 @@ export default function InfoModal() {
             </div>
 
             <div className="bymd-logo">
-              <img src={`${import.meta.env.BASE_URL}images/bymd.png`} alt="Bymd" />
+              <a href="https://www.bymd.site" target="_blank" rel="noopener noreferrer">
+                <img src={`${import.meta.env.BASE_URL}images/bymd.png`} alt="Bymd" />
+              </a>
             </div>
           </div>
         </div>
