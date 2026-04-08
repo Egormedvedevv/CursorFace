@@ -7,54 +7,59 @@ import './index.css'
 
 console.log('main.jsx loaded')
 
-// Component to handle hash-based redirects from 404.html
+function getRedirectTarget(basePath) {
+  const search = window.location.search
+  if (search.startsWith('?/')) {
+    const decoded = search.slice(2).replace(/~and~/g, '&')
+    const [rawPath, ...rawQueryParts] = decoded.split('&')
+    let path = rawPath || ''
+
+    if (path.startsWith(basePath)) {
+      path = path.substring(basePath.length)
+    }
+
+    path = `/${path.replace(/^\/+/, '')}`
+
+    const queryString = rawQueryParts.length ? `?${rawQueryParts.join('&')}` : ''
+    return `${path}${queryString}${window.location.hash}`
+  }
+
+  const hash = window.location.hash
+  if (hash && hash.length > 1) {
+    let path = hash.substring(1)
+
+    const queryIndex = path.indexOf('?')
+    let queryString = ''
+    if (queryIndex !== -1) {
+      queryString = path.substring(queryIndex)
+      path = path.substring(0, queryIndex)
+    }
+
+    if (path.startsWith(basePath)) {
+      path = path.substring(basePath.length)
+    }
+
+    if (path && !path.startsWith('/')) {
+      path = '/' + path
+    }
+
+    return path && path !== '/' ? path + queryString : null
+  }
+
+  return null
+}
+
+// Component to handle redirects from 404.html
 function HashRedirect() {
   const navigate = useNavigate()
   
   React.useEffect(() => {
-    // Check if we have a hash that contains a path (from 404 redirect)
-    const hash = window.location.hash
-    if (hash && hash.length > 1) {
-      // Hash format: #/path?query or #?query
-      let path = hash.substring(1) // Remove the #
-      
-      // Extract path and query
-      const queryIndex = path.indexOf('?')
-      let queryString = ''
-      if (queryIndex !== -1) {
-        queryString = path.substring(queryIndex)
-        path = path.substring(0, queryIndex)
-      }
-      
-      // Remove base path if present
-      const basePath = import.meta.env.BASE_URL.replace(/\/$/, '')
-      if (path.startsWith(basePath)) {
-        path = path.substring(basePath.length)
-      }
-      
-      // Ensure path starts with /
-      if (path && !path.startsWith('/')) {
-        path = '/' + path
-      }
-      
-      // Only redirect if we have a valid path
-      if (path && path !== '/') {
-        const fullPath = path + queryString
-        const currentPath = window.location.pathname + window.location.search
-        const basePathClean = basePath || ''
-        const currentPathClean = currentPath.startsWith(basePathClean) 
-          ? currentPath.substring(basePathClean.length) || '/' 
-          : currentPath || '/'
-        
-        // Normalize paths for comparison
-        const normalizedHashPath = fullPath.replace(/\/$/, '') || '/'
-        const normalizedCurrentPath = currentPathClean.replace(/\/$/, '') || '/'
-        
-        if (normalizedHashPath !== normalizedCurrentPath) {
-          console.log('Redirecting from hash to:', fullPath)
-          navigate(fullPath, { replace: true })
-        }
-      }
+    const basePath = import.meta.env.BASE_URL.replace(/\/$/, '')
+    const redirectTarget = getRedirectTarget(basePath)
+
+    if (redirectTarget) {
+      console.log('Redirecting from 404 fallback to:', redirectTarget)
+      navigate(redirectTarget, { replace: true })
     }
   }, [navigate])
   
