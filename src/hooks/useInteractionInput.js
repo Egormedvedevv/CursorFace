@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
-const POINTER_CENTER = { x: 0, y: 0 }
 const TILT_HORIZONTAL_RANGE = 24
 const TILT_VERTICAL_RANGE = 32
 const TILT_X_FACTOR = 0.34
@@ -11,11 +10,77 @@ function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value))
 }
 
+function isTouchCapable() {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    return false
+  }
+
+  const maxTouchPoints = typeof navigator.maxTouchPoints === 'number' ? navigator.maxTouchPoints : 0
+
+  return maxTouchPoints > 0 || 'ontouchstart' in window
+}
+
+function hasMobileUserAgent() {
+  if (typeof navigator === 'undefined') {
+    return false
+  }
+
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  )
+}
+
+function detectIsMobileLike() {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  const coarsePointer =
+    typeof window.matchMedia === 'function'
+      ? window.matchMedia('(pointer: coarse)').matches
+      : false
+  const compactViewport = window.innerWidth <= 1180
+
+  return coarsePointer || (isTouchCapable() && compactViewport) || (hasMobileUserAgent() && compactViewport)
+}
+
+function detectMotionSupport() {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  return Boolean(window.isSecureContext && 'DeviceOrientationEvent' in window)
+}
+
+function getInitialMotionState() {
+  const mobileLike = detectIsMobileLike()
+  const motionSupport = detectMotionSupport()
+
+  if (!mobileLike) {
+    return 'off'
+  }
+
+  if (!motionSupport) {
+    return 'unsupported'
+  }
+
+  return requiresMotionPermission() ? 'prompt' : 'off'
+}
+
 function getViewportCenter() {
+  if (typeof window === 'undefined') {
+    return { x: 0, y: 0 }
+  }
+
   return {
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
   }
+}
+
+function resetMotionRefs(baselineRef, smoothedTiltRef) {
+  baselineRef.current = null
+  smoothedTiltRef.current = { x: 0, y: 0 }
 }
 
 function getOrientationAngle() {
@@ -127,12 +192,12 @@ async function requestMotionPermissions() {
 }
 
 export function useInteractionInput() {
-  const [pointerPosition, setPointerPosition] = useState(POINTER_CENTER)
+  const [pointerPosition, setPointerPosition] = useState(() => getViewportCenter())
   const [motionPosition, setMotionPosition] = useState(null)
-  const [motionState, setMotionState] = useState('off')
+  const [motionState, setMotionState] = useState(() => getInitialMotionState())
   const [motionEnabled, setMotionEnabled] = useState(false)
-  const [isMobileLike, setIsMobileLike] = useState(false)
-  const [motionSupported, setMotionSupported] = useState(false)
+  const [isMobileLike, setIsMobileLike] = useState(() => detectIsMobileLike())
+  const [motionSupported, setMotionSupported] = useState(() => detectMotionSupport())
 
   const baselineRef = useRef(null)
   const hasMotionSampleRef = useRef(false)
@@ -146,16 +211,13 @@ export function useInteractionInput() {
     motionEnabledRef.current = motionEnabled
   }, [motionEnabled])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const center = getViewportCenter()
     setPointerPosition(center)
 
     const updateCapabilities = () => {
-      const coarsePointer = window.matchMedia('(pointer: coarse)').matches
-      const touchCapable = navigator.maxTouchPoints > 0
-      const mobileViewport = window.innerWidth <= 1024
-      const nextIsMobileLike = coarsePointer || (touchCapable && mobileViewport)
-      const nextMotionSupported = Boolean(window.isSecureContext && 'DeviceOrientationEvent' in window)
+      const nextIsMobileLike = detectIsMobileLike()
+      const nextMotionSupported = detectMotionSupport()
 
       setIsMobileLike(nextIsMobileLike)
       setMotionSupported(nextMotionSupported)
@@ -177,7 +239,12 @@ export function useInteractionInput() {
 
           return 'prompt'
         })
+        return
       }
+
+      setMotionState((currentState) =>
+        currentState === 'unsupported' ? 'off' : currentState
+      )
     }
 
     const updatePointerPosition = (event) => {
@@ -228,10 +295,14 @@ export function useInteractionInput() {
       updateCapabilities()
 
       if (motionEnabledRef.current) {
-        baselineRef.current = null
-        smoothedTiltRef.current = { x: 0, y: 0 }
+        resetMotionRefs(baselineRef, smoothedTiltRef)
         setMotionPosition(getViewportCenter())
       }
+    }
+
+    const handlePageShow = () => {
+      setPointerPosition(getViewportCenter())
+      handleViewportChange()
     }
 
     updateCapabilities()
@@ -242,6 +313,8 @@ export function useInteractionInput() {
     window.addEventListener('pointercancel', releasePointer)
     window.addEventListener('resize', handleViewportChange)
     window.addEventListener('orientationchange', handleViewportChange)
+    window.addEventListener('pageshow', handlePageShow)
+    window.visualViewport?.addEventListener('resize', handleViewportChange)
 
     return () => {
       window.removeEventListener('pointermove', handlePointerMove)
@@ -250,6 +323,8 @@ export function useInteractionInput() {
       window.removeEventListener('pointercancel', releasePointer)
       window.removeEventListener('resize', handleViewportChange)
       window.removeEventListener('orientationchange', handleViewportChange)
+      window.removeEventListener('pageshow', handlePageShow)
+      window.visualViewport?.removeEventListener('resize', handleViewportChange)
     }
   }, [])
 
@@ -357,8 +432,7 @@ export function useInteractionInput() {
         }
       }
 
-      baselineRef.current = null
-      smoothedTiltRef.current = { x: 0, y: 0 }
+      resetMotionRefs(baselineRef, smoothedTiltRef)
       setMotionEnabled(true)
       return true
     } catch (error) {

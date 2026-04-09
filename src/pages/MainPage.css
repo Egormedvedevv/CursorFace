@@ -1,4 +1,6 @@
 .main-page {
+  --grid-step: 40px;
+  --grid-overlay-opacity: 0.01;
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -8,9 +10,9 @@
     repeating-linear-gradient(
       0deg,
       #0a0a0a 0px,
-      #0a0a0a 20px,
-      #1a1a1a 20px,
-      #1a1a1a 40px
+      #0a0a0a calc(var(--grid-step) / 2),
+      #1a1a1a calc(var(--grid-step) / 2),
+      #1a1a1a var(--grid-step)
     );
   background-size: 100% 100%;
   background-attachment: fixed;
@@ -30,9 +32,9 @@
     repeating-linear-gradient(
       90deg,
       transparent 0px,
-      transparent 20px,
-      rgba(255, 255, 255, 0.01) 20px,
-      rgba(255, 255, 255, 0.01) 40px
+      transparent calc(var(--grid-step) / 2),
+      rgba(255, 255, 255, var(--grid-overlay-opacity)) calc(var(--grid-step) / 2),
+      rgba(255, 255, 255, var(--grid-overlay-opacity)) var(--grid-step)
     );
   pointer-events: none;
   z-index: 0;
@@ -71,13 +73,14 @@
 /* Планшеты */
 @media (min-width: 769px) and (max-width: 1024px) {
   .main-page {
+    --grid-step: 50px;
     background-image: 
       repeating-linear-gradient(
         0deg,
         #0a0a0a 0px,
-        #0a0a0a 25px,
-        #1a1a1a 25px,
-        #1a1a1a 50px
+        #0a0a0a calc(var(--grid-step) / 2),
+        #1a1a1a calc(var(--grid-step) / 2),
+        #1a1a1a var(--grid-step)
       );
   }
 
@@ -97,6 +100,12 @@
 }
 
 @media (max-width: 768px) {
+  .main-page {
+    --grid-step: 32px;
+    --grid-overlay-opacity: 0.025;
+    background-attachment: scroll;
+  }
+
   .back-to-start-btn {
     width: 40px;
     height: 40px;
@@ -208,4 +217,3 @@ footer .logo:active {
     touch-action: none;
   }
 }
-

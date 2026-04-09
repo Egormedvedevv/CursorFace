@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { characters } from '../data/characters'
 import CharacterFace from '../components/CharacterFace'
@@ -8,10 +8,16 @@ import { useFaceAnimation } from '../hooks/useFaceAnimation'
 import { useInteractionInput } from '../hooks/useInteractionInput'
 import './MainPage.css'
 
+function getCharacterFromSearchParams(searchParams) {
+  const charId = searchParams.get('char') || '1'
+  return characters.find((character) => character.id === charId) || characters[0]
+}
+
 export default function MainPage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const [isFading, setIsFading] = useState(false)
+  const fadeTimeoutRef = useRef(null)
   const {
     inputPosition,
     isMobileLike,
@@ -22,37 +28,52 @@ export default function MainPage() {
   } = useInteractionInput()
   const faceTransform = useFaceAnimation(inputPosition)
 
-  // Инициализация персонажа из URL параметров сразу при монтировании
-  const getInitialCharacter = () => {
-    const charId = searchParams.get('char') || '1'
-    return characters.find((c) => c.id === charId) || characters[0]
-  }
-
-  const [currentCharacter, setCurrentCharacter] = useState(() => getInitialCharacter())
+  const selectedCharacter = useMemo(
+    () => getCharacterFromSearchParams(searchParams),
+    [searchParams]
+  )
+  const [displayCharacter, setDisplayCharacter] = useState(selectedCharacter)
 
   useEffect(() => {
-    const charId = searchParams.get('char') || '1'
-    const character = characters.find((c) => c.id === charId) || characters[0]
-    if (character && character.id !== currentCharacter.id) {
-      setIsFading(true)
-      setTimeout(() => {
-        setCurrentCharacter(character)
-        setIsFading(false)
-      }, 250)
+    if (fadeTimeoutRef.current) {
+      clearTimeout(fadeTimeoutRef.current)
+      fadeTimeoutRef.current = null
     }
-  }, [searchParams])
+
+    if (selectedCharacter.id === displayCharacter.id) {
+      setIsFading(false)
+      return
+    }
+
+    setIsFading(true)
+    fadeTimeoutRef.current = setTimeout(() => {
+      setDisplayCharacter(selectedCharacter)
+      setIsFading(false)
+      fadeTimeoutRef.current = null
+    }, 250)
+
+    return () => {
+      if (fadeTimeoutRef.current) {
+        clearTimeout(fadeTimeoutRef.current)
+        fadeTimeoutRef.current = null
+      }
+    }
+  }, [displayCharacter.id, selectedCharacter])
+
+  useEffect(() => {
+    return () => {
+      if (fadeTimeoutRef.current) {
+        clearTimeout(fadeTimeoutRef.current)
+      }
+    }
+  }, [])
 
   const handleCharacterChange = (character) => {
-    if (character.id === currentCharacter.id) return
-    
+    if (character.id === selectedCharacter.id) return
+
     setIsFading(true)
-    // Update URL with new character
+
     navigate(`/main?char=${character.id}`, { replace: true })
-    // Update character immediately
-    setTimeout(() => {
-      setCurrentCharacter(character)
-      setIsFading(false)
-    }, 250)
   }
 
   const handleBackClick = () => {
@@ -72,7 +93,7 @@ export default function MainPage() {
 
       <CharacterSwitcher
         onCharacterChange={handleCharacterChange}
-        currentCharacterId={currentCharacter.id}
+        currentCharacterId={selectedCharacter.id}
       />
 
       {isMobileLike ? (
@@ -92,7 +113,7 @@ export default function MainPage() {
           }}
         >
           <CharacterFace
-            character={currentCharacter}
+            character={displayCharacter}
             targetPosition={inputPosition}
           />
         </div>
