@@ -22,6 +22,24 @@ function getInitialFaceWidth() {
   return getExpectedFaceWidth(window.innerWidth)
 }
 
+function getStableFaceWidth(faceElement) {
+  const computedWidth = Number.parseFloat(window.getComputedStyle(faceElement).width)
+  if (Number.isFinite(computedWidth) && computedWidth > 0) {
+    return computedWidth
+  }
+
+  if (Number.isFinite(faceElement.clientWidth) && faceElement.clientWidth > 0) {
+    return faceElement.clientWidth
+  }
+
+  if (Number.isFinite(faceElement.offsetWidth) && faceElement.offsetWidth > 0) {
+    return faceElement.offsetWidth
+  }
+
+  const rectWidth = faceElement.getBoundingClientRect().width
+  return Number.isFinite(rectWidth) && rectWidth > 0 ? rectWidth : 0
+}
+
 export default function CharacterFace({ character, targetPosition }) {
   const leftEyeRef = useRef(null)
   const rightEyeRef = useRef(null)
@@ -43,7 +61,7 @@ export default function CharacterFace({ character, targetPosition }) {
       return
     }
 
-    const nextWidth = faceElement.getBoundingClientRect().width
+    const nextWidth = getStableFaceWidth(faceElement)
 
     if (!Number.isFinite(nextWidth) || nextWidth <= 0) {
       return
