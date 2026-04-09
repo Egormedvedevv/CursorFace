@@ -1,6 +1,9 @@
 .start-page {
   width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   height: 100vh;
+  height: 100dvh;
   position: relative;
   overflow: hidden;
   background: var(--bg-primary);
@@ -8,11 +11,11 @@
 }
 
 .start-logo {
+  --start-logo-base-shift-x: -50%;
   position: fixed;
   top: calc(env(safe-area-inset-top, 0px) + 30px);
   left: 50%;
-  transform: translateX(-50%);
-  width: clamp(200px, 30vw, 450px);
+  width: clamp(224px, 32vw, 496px);
   height: auto;
   z-index: 1000;
   pointer-events: none;
@@ -22,8 +25,13 @@
 
 @media (max-width: 768px) {
   .start-logo {
-    top: calc(env(safe-area-inset-top, 0px) + 18px);
-    width: clamp(150px, 48vw, 260px);
+    --start-logo-mobile-left: calc(env(safe-area-inset-left, 0px) + 5vw + 1rem);
+    --start-logo-mobile-right-reserve: calc(env(safe-area-inset-right, 0px) + 4.5rem);
+    top: calc(env(safe-area-inset-top, 0px) + 1.5rem);
+    left: var(--start-logo-mobile-left);
+    --start-logo-base-shift-x: 0px;
+    width: min(90vw, 360px);
+    max-width: calc(100vw - var(--start-logo-mobile-left) - var(--start-logo-mobile-right-reserve));
   }
 }
 
@@ -44,7 +52,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
+  background-image:
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 50px 50px;
@@ -57,7 +65,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
+  background-image:
     repeating-linear-gradient(
       0deg,
       transparent,
@@ -92,7 +100,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
+  background:
     radial-gradient(circle at 20% 30%, var(--pixel-color) 0%, transparent 50%),
     radial-gradient(circle at 80% 70%, var(--pixel-color) 0%, transparent 50%),
     radial-gradient(circle at 50% 50%, var(--grid-color) 0%, transparent 50%);
@@ -175,87 +183,97 @@
   text-align: center;
   pointer-events: auto;
   width: auto;
-  max-width: 90vw;
+  max-width: min(94vw, 780px);
   visibility: visible !important;
   opacity: 1 !important;
-  display: block !important;
+  display: grid !important;
+  justify-items: center;
+  gap: 18px;
   padding: 0 20px;
   box-sizing: border-box;
 }
 
 .start-page .choose-label {
   color: #fff !important;
-  font-weight: bold;
+  font-weight: 500;
   display: block !important;
   visibility: visible !important;
-  font-family: 'Press Start 2P', monospace;
-  font-size: 24px;
+  font-family: var(--font-pixel);
+  font-size: clamp(16px, 2vw, 24px);
   line-height: 1.5;
-  letter-spacing: 2px;
-  margin-bottom: 30px;
-  text-align: center;
+  letter-spacing: 1.6px;
+  margin-bottom: 0;
+  text-align: left;
   position: relative;
-  left: calc(50% + 10px);
-  transform: translateX(-50%);
-  width: fit-content;
+  z-index: 1;
+  left: 0;
+  transform: none;
+  width: 100%;
   margin-left: 0;
   margin-right: 0;
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.14);
+  justify-self: stretch;
+  padding-left: 4px;
 }
 
 .start-page .char-buttons {
+  --thumb-size: 164px;
   display: grid !important;
-  grid-template-columns: repeat(3, 90px) !important;
-  grid-template-rows: repeat(2, 90px) !important;
-  gap: 120px !important;
+  grid-template-columns: repeat(3, var(--thumb-size)) !important;
+  grid-template-rows: repeat(2, var(--thumb-size)) !important;
+  gap: 28px !important;
   justify-content: center;
   justify-items: center;
   visibility: visible !important;
   opacity: 1 !important;
   margin: 0 auto;
   position: relative;
-  width: 100%;
+  z-index: 1;
+  width: fit-content;
   max-width: 100%;
+  padding: 0;
   box-sizing: border-box;
 }
 
 @media (max-width: 1400px) {
   .start-page .char-buttons {
-    gap: 80px !important;
+    --thumb-size: 152px;
   }
 }
 
 @media (max-width: 1200px) {
   .start-page .char-buttons {
-    gap: 60px !important;
+    --thumb-size: 138px;
   }
 }
 
 @media (max-width: 1000px) {
   .start-page .char-buttons {
-    gap: 40px !important;
+    --thumb-size: 122px;
   }
 }
 
 .char-buttons img {
-  width: 150px !important;
-  height: 150px !important;
-  border-radius: 8px;
-  border: 1px solid transparent;
+  width: var(--thumb-size) !important;
+  height: var(--thumb-size) !important;
+  border-radius: 0;
+  border: 0;
   object-fit: cover;
-  transition: border-color 0.3s ease, transform 0.2s ease;
+  transition: transform 0.16s ease, filter 0.16s ease, opacity 0.16s ease;
   cursor: pointer;
-  background-color: #111;
+  background: transparent;
   touch-action: manipulation;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
   -webkit-tap-highlight-color: transparent;
+  image-rendering: pixelated;
 }
 
 .char-buttons img:hover,
 .char-buttons img:active {
-  border-color: #fff;
-  transform: scale(1.1);
+  transform: translateY(-2px) scale(1.04);
+  filter: brightness(1.08);
 }
 
 @media (max-width: 768px) {
@@ -272,16 +290,6 @@
 
   .start-page .choose-label {
     font-size: 18px !important;
-    margin-bottom: 25px !important;
-  }
-
-  .char-buttons {
-    gap: 70px !important;
-  }
-
-  .char-buttons img {
-    width: 130px !important;
-    height: 130px !important;
   }
 
   .start-logo {
@@ -292,33 +300,34 @@
 /* Мобильные устройства */
 @media (max-width: 768px) {
   .start-page .character-switcher {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 28px) !important;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px) !important;
     top: auto !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: min(100%, 340px);
-    max-width: 340px;
-    padding: 0 12px;
+    width: 90vw;
+    max-width: 90vw;
+    padding: 0;
     box-sizing: border-box;
+    gap: 12px;
   }
 
   .start-page .choose-label {
-    font-size: clamp(12px, 3.6vw, 16px) !important;
-    margin-bottom: 16px !important;
-    letter-spacing: 1.4px !important;
-    left: 50% !important;
+    font-size: clamp(24px, 4.8vw, 22px) !important;
+    letter-spacing: 1.8px !important;
+    left: 0 !important;
+    padding-left: 1rem;
   }
 
-  .char-buttons {
-    gap: 12px !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    grid-template-rows: repeat(2, auto) !important;
+  .start-page .char-buttons {
+    gap: clamp(10px, 2.5vw, 12px) !important;
     width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, 9rem) !important;
   }
 
-  .char-buttons img {
-    width: clamp(72px, 22vw, 92px) !important;
-    height: clamp(72px, 22vw, 92px) !important;
+  .start-page .char-buttons img {
+    width: 90% !important;
+    height: auto !important;
     aspect-ratio: 1;
     max-width: none;
   }
@@ -350,18 +359,40 @@
   }
 }
 
+@media (max-width: 768px) and (max-height: 780px) {
+  .start-logo {
+    width: min(70vw, 250px);
+    max-width: calc(100vw - 5rem);
+  }
+
+  .start-page .choose-label {
+    font-size: 18px !important;
+    letter-spacing: 1px !important;
+  }
+
+  .start-page .character-switcher {
+    width: min(78vw, 320px);
+    max-width: min(78vw, 320px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 12px) !important;
+    gap: 10px;
+  }
+
+  .start-page .char-buttons {
+    gap: 8px !important;
+  }
+}
+
 @media (max-width: 420px) {
   .start-page .character-switcher {
-    width: min(100%, 312px);
-    max-width: 312px;
+    width: 90vw;
+    max-width: 90vw;
   }
 
-  .char-buttons {
+  .start-page .choose-label {
+    font-size: clamp(15px, 5vw, 19px) !important;
+  }
+
+  .start-page .char-buttons {
     gap: 10px !important;
-  }
-
-  .char-buttons img {
-    width: clamp(66px, 21vw, 82px) !important;
-    height: clamp(66px, 21vw, 82px) !important;
   }
 }

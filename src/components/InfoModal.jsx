@@ -32,11 +32,12 @@ export default function InfoModal() {
     <>
       <button
         id="info-btn"
+        type="button"
         title="Info"
         aria-label="Info"
         onClick={() => setIsOpen(true)}
       >
-        <img src={`${import.meta.env.BASE_URL}startimgs/i.png`} alt="Info" loading="lazy" />
+        <i aria-hidden="true" className="hn hn-info-circle info-btn-icon" />
       </button>
 
       {isOpen && (
@@ -56,9 +57,12 @@ export default function InfoModal() {
           >
             <button
               id="close-info"
+              type="button"
+              title="Close"
+              aria-label="Close"
               onClick={() => setIsOpen(false)}
             >
-              &times;
+              <i aria-hidden="true" className="hn hn-times-circle close-info-icon" />
             </button>
             
             <div className="welcome-content">
@@ -68,7 +72,8 @@ export default function InfoModal() {
                   <p key={index}>{paragraph}</p>
                 ))}
               </div>
-              
+            </div>
+            <div className="modal-footer">
               <div className="language-switcher">
                 <button
                   className={`lang-btn ${language === 'ru' ? 'active' : ''}`}
@@ -83,12 +88,12 @@ export default function InfoModal() {
                   EN
                 </button>
               </div>
-            </div>
 
-            <div className="bymd-logo">
-              <a href="https://www.bymd.site" target="_blank" rel="noopener noreferrer">
-                <img src={`${import.meta.env.BASE_URL}images/bymd.png`} alt="Bymd" />
-              </a>
+              <div className="bymd-logo">
+                <a href="https://www.bymd.site" target="_blank" rel="noopener noreferrer">
+                  <img src={`${import.meta.env.BASE_URL}images/bymd.png`} alt="Bymd" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -96,5 +101,3 @@ export default function InfoModal() {
     </>
   )
 }
-
-

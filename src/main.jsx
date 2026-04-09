@@ -61,7 +61,7 @@ function HashRedirect() {
 const rootElement = document.getElementById('root')
 if (!rootElement) {
   console.error('Root element not found!')
-  document.body.innerHTML = '<div style="padding: 50px; background: #0a0a0a; color: #fff; font-family: Arial; min-height: 100vh;"><h1>Root element not found!</h1></div>'
+  document.body.innerHTML = '<div style="padding: 50px; background: #0a0a0a; color: #fff; font-family: var(--font-pixel); min-height: 100vh;"><h1>Root element not found!</h1></div>'
 } else {
   try {
     const root = ReactDOM.createRoot(rootElement)
@@ -75,6 +75,6 @@ if (!rootElement) {
     )
   } catch (error) {
     console.error('Failed to render:', error)
-    rootElement.innerHTML = `<div style="padding: 50px; background: #0a0a0a; color: #fff; font-family: Arial; min-height: 100vh;"><h1>Render Error</h1><p>${error.message}</p><pre>${error.stack}</pre></div>`
+    rootElement.innerHTML = `<div style="padding: 50px; background: #0a0a0a; color: #fff; font-family: var(--font-pixel); min-height: 100vh;"><h1>Render Error</h1><p>${error.message}</p><pre>${error.stack}</pre></div>`
   }
 }

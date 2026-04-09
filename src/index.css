@@ -1,3 +1,5 @@
+@import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
+
 * {
   margin: 0;
   padding: 0;
@@ -5,6 +7,7 @@
 }
 
 :root {
+  --font-pixel: 'Press Start 2P', ui-monospace, 'SFMono-Regular', 'Roboto Mono', Menlo, Monaco, 'Courier New', monospace;
   --bg-primary: #0a0a0a;
   --bg-secondary: #111;
   --bg-footer: #000;
@@ -42,13 +45,20 @@ body {
   padding: 0;
   background-color: var(--bg-primary);
   overflow: hidden;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-pixel);
   transition: background-color 0.3s ease;
   touch-action: manipulation;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 #root {
@@ -58,5 +68,3 @@ body {
   touch-action: manipulation;
   position: relative;
 }
-
-

@@ -22,7 +22,6 @@ export default function MainPage() {
     inputPosition,
     isMobileLike,
     motionEnabled,
-    motionSupported,
     motionUi,
     toggleMotion,
   } = useInteractionInput()
@@ -82,28 +81,32 @@ export default function MainPage() {
 
   return (
     <div className={`main-page ${isMobileLike ? 'is-mobile-ready' : ''}`}>
-      <img
-        src={`${import.meta.env.BASE_URL}images/back-to-start.png`}
-        alt="Back to Start"
-        className="back-to-start-btn"
-        onClick={handleBackClick}
-      />
+      <div className="top-controls">
+        <CharacterSwitcher
+          onCharacterChange={handleCharacterChange}
+          currentCharacterId={selectedCharacter.id}
+        />
+
+        {isMobileLike ? (
+          <MotionToggle
+            motionEnabled={motionEnabled}
+            motionUi={motionUi}
+            onToggle={toggleMotion}
+          />
+        ) : null}
+
+        <button
+          type="button"
+          aria-label="Back to Start"
+          title="Back to Start"
+          className="back-to-start-btn"
+          onClick={handleBackClick}
+        >
+          <i aria-hidden="true" className="hn hn-times-circle back-to-start-icon" />
+        </button>
+      </div>
 
       <div className={`screen-fader ${isFading ? 'fade' : ''}`}></div>
-
-      <CharacterSwitcher
-        onCharacterChange={handleCharacterChange}
-        currentCharacterId={selectedCharacter.id}
-      />
-
-      {isMobileLike ? (
-        <MotionToggle
-          motionEnabled={motionEnabled}
-          motionSupported={motionSupported}
-          motionUi={motionUi}
-          onToggle={toggleMotion}
-        />
-      ) : null}
 
       <main>
         <div
@@ -121,13 +124,15 @@ export default function MainPage() {
       </main>
 
       <footer>
-        <img 
-          src={`${import.meta.env.BASE_URL}images/logo.png`}
-          alt="Cursorface logo" 
-          className="logo" 
-          onClick={handleBackClick}
-          style={{ cursor: 'pointer' }}
-        />
+        <div className="logo-shell">
+          <img 
+            src={`${import.meta.env.BASE_URL}images/logo.png`}
+            alt="Cursorface logo" 
+            className="logo" 
+            onClick={handleBackClick}
+            style={{ cursor: 'pointer' }}
+          />
+        </div>
         <a href="https://www.bymd.site" target="_blank" rel="noopener noreferrer">
           <img src={`${import.meta.env.BASE_URL}images/bymd.png`} alt="Bymd" className="bymd" loading="lazy" />
         </a>

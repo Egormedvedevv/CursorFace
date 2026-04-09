@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 const TILT_HORIZONTAL_RANGE = 24
 const TILT_VERTICAL_RANGE = 32
@@ -113,47 +113,55 @@ function mapTiltToAxes(beta, gamma, angle) {
   return { x: gamma, y: beta }
 }
 
-function getMotionStateLabel(state) {
+function getMotionUi(state) {
   switch (state) {
     case 'active':
       return {
-        title: 'Tilt on',
-        detail: 'Tap to disable',
+        label: 'Tilt enabled. Tap to disable.',
+        variant: 'active',
+        disabled: false,
       }
     case 'prompt':
       return {
-        title: 'Allow tilt',
-        detail: 'Required on iPhone',
+        label: 'Enable tilt access.',
+        variant: 'prompt',
+        disabled: false,
       }
     case 'requesting':
       return {
-        title: 'Allow motion',
-        detail: 'Browser permission',
+        label: 'Requesting motion access.',
+        variant: 'requesting',
+        disabled: true,
       }
     case 'pending':
       return {
-        title: 'Calibrating',
-        detail: 'Move your phone',
+        label: 'Calibrating motion input.',
+        variant: 'pending',
+        disabled: true,
       }
     case 'denied':
       return {
-        title: 'Motion blocked',
-        detail: 'Touch still works',
+        label: 'Motion access blocked. Tap to retry.',
+        variant: 'blocked',
+        disabled: false,
       }
     case 'error':
       return {
-        title: 'No sensor data',
-        detail: 'Touch still works',
+        label: 'No sensor data. Tap to retry.',
+        variant: 'error',
+        disabled: false,
       }
     case 'unsupported':
       return {
-        title: 'Tilt unavailable',
-        detail: 'Touch only',
+        label: 'Tilt unavailable on this device.',
+        variant: 'unsupported',
+        disabled: true,
       }
     default:
       return {
-        title: 'Enable tilt',
-        detail: 'Use your phone',
+        label: 'Enable tilt input.',
+        variant: 'idle',
+        disabled: false,
       }
   }
 }
@@ -413,7 +421,7 @@ export function useInteractionInput() {
     }
   }, [motionEnabled])
 
-  const enableMotion = async () => {
+  const enableMotion = useCallback(async () => {
     if (!motionSupported) {
       setMotionState('unsupported')
       return false
@@ -440,22 +448,22 @@ export function useInteractionInput() {
       setMotionState(error?.name === 'NotAllowedError' ? 'denied' : 'error')
       return false
     }
-  }
+  }, [motionSupported])
 
-  const disableMotion = () => {
+  const disableMotion = useCallback(() => {
     setMotionEnabled(false)
     setMotionState('off')
     setMotionPosition(null)
-  }
+  }, [])
 
-  const toggleMotion = async () => {
+  const toggleMotion = useCallback(async () => {
     if (motionEnabled) {
       disableMotion()
       return false
     }
 
     return enableMotion()
-  }
+  }, [disableMotion, enableMotion, motionEnabled])
 
   useEffect(() => {
     if (!isMobileLike || !motionSupported || motionEnabled || autoEnableAttemptedRef.current) {
@@ -463,13 +471,32 @@ export function useInteractionInput() {
     }
 
     if (requiresMotionPermission()) {
+      const handleFirstGesture = (event) => {
+        const targetElement = event.target instanceof Element ? event.target : null
+
+        if (targetElement?.closest('.motion-toggle-btn')) {
+          return
+        }
+
+        if (autoEnableAttemptedRef.current || motionEnabledRef.current) {
+          return
+        }
+
+        autoEnableAttemptedRef.current = true
+        void enableMotion()
+      }
+
       setMotionState((currentState) => (currentState === 'off' ? 'prompt' : currentState))
-      return
+      window.addEventListener('pointerdown', handleFirstGesture, true)
+
+      return () => {
+        window.removeEventListener('pointerdown', handleFirstGesture, true)
+      }
     }
 
     autoEnableAttemptedRef.current = true
     void enableMotion()
-  }, [isMobileLike, motionEnabled, motionSupported])
+  }, [enableMotion, isMobileLike, motionEnabled, motionSupported])
 
   const useTouchFallback =
     !isMobileLike ||
@@ -490,7 +517,7 @@ export function useInteractionInput() {
     motionEnabled,
     motionSupported,
     motionState,
-    motionUi: getMotionStateLabel(motionSupported ? motionState : 'unsupported'),
+    motionUi: getMotionUi(motionSupported ? motionState : 'unsupported'),
     toggleMotion,
   }
 }

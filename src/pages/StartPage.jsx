@@ -129,7 +129,7 @@ export default function StartPage() {
   }
 
   return (
-    <div className="start-page" style={{ backgroundColor: '#0a0a0a', minHeight: '100vh', color: '#fff' }}>
+    <div className="start-page" style={{ backgroundColor: '#0a0a0a', minHeight: '100dvh', color: '#fff' }}>
       <div className="start-page-background">
         <div className="grid-pattern"></div>
         <div className="pixel-pattern"></div>
@@ -144,7 +144,7 @@ export default function StartPage() {
         className="start-logo"
         alt="CursorFace Logo"
         style={{
-          transform: `translate(calc(-50% + ${logoTransform.x}px), ${logoTransform.y}px) scale(${logoTransform.scale})`,
+          transform: `translate(calc(var(--start-logo-base-shift-x, -50%) + ${logoTransform.x}px), ${logoTransform.y}px) scale(${logoTransform.scale})`,
         }}
         loading="lazy"
       />

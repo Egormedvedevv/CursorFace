@@ -1,13 +1,18 @@
 #info-btn {
   position: fixed;
-  top: 15px;
-  right: 15px;
+  top: calc(env(safe-area-inset-top, 0px) + 30px);
+  right: calc(env(safe-area-inset-right, 0px) + 15px);
   z-index: 20000 !important;
   background: transparent;
   border: none;
   cursor: pointer;
   transition: transform 0.2s ease;
-  padding: 8px;
+  padding: 0;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
@@ -17,9 +22,10 @@
   transform: scale(1.15);
 }
 
-#info-btn img {
-  width: 48px;
-  height: 48px;
+.info-btn-icon {
+  font-size: 48px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.94);
 }
 
 .modal {
@@ -35,9 +41,11 @@
 }
 
 .modal-content {
+  --modal-pad-y: 40px;
+  --modal-pad-x: 40px;
   background: var(--bg-modal);
   transition: background-color 0.3s ease;
-  padding: 40px;
+  padding: var(--modal-pad-y) var(--modal-pad-x);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   position: relative;
   border-radius: 16px;
@@ -50,17 +58,17 @@
 
 #close-info {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: var(--modal-pad-y);
+  right: var(--modal-pad-x);
   z-index: 10;
-  font-size: 28px;
   background: none;
   border: none;
   color: #fff;
   cursor: pointer;
   transition: color 0.2s ease, transform 0.2s ease;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,35 +78,41 @@
   user-select: none;
 }
 
+#close-info .close-info-icon {
+  font-size: 34px;
+  line-height: 1;
+}
+
 #close-info:hover,
 #close-info:active {
   color: #ccc;
   transform: scale(1.1);
-  background: var(--button-bg);
 }
 
 .welcome-content {
   color: #fff;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-pixel);
+  text-align: left;
 }
 
 .welcome-title {
-  font-family: 'Press Start 2P', monospace;
-  font-size: 20px;
-  font-weight: normal;
+  font-size: 24px;
+  font-weight: 500;
   margin-bottom: 24px;
   color: #fff;
-  text-align: center;
-  letter-spacing: 2px;
+  text-align: left;
+  letter-spacing: 0.04em;
   line-height: 1.5;
+  max-width: calc(100% - 56px);
+  white-space: normal;
 }
 
 .welcome-text {
-  font-family: 'Helvetica', 'Arial', sans-serif;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 1.6;
+  font-family: var(--font-pixel);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.8;
   margin-bottom: 30px;
   color: #e0e0e0;
 }
@@ -114,10 +128,9 @@
 .language-switcher {
   display: flex;
   gap: 12px;
-  justify-content: center;
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid var(--modal-border);
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .lang-btn {
@@ -128,7 +141,7 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 500;
   transition: all 0.3s ease;
   text-transform: uppercase;
   touch-action: manipulation;
@@ -151,12 +164,22 @@
   color: #fff;
 }
 
+.modal-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--modal-border);
+}
+
 .bymd-logo {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+  position: static;
+  margin-left: auto;
   opacity: 0.7;
   transition: opacity 0.3s ease;
+  flex: 0 0 auto;
 }
 
 .bymd-logo:hover {
@@ -177,62 +200,70 @@
 /* Планшеты */
 @media (min-width: 769px) and (max-width: 1024px) {
   #info-btn {
-    padding: 7px;
-  }
-
-  #info-btn img {
+    top: calc(env(safe-area-inset-top, 0px) + 30px);
+    right: calc(env(safe-area-inset-right, 0px) + 15px);
     width: 44px;
     height: 44px;
   }
 
+  .info-btn-icon {
+    font-size: 44px;
+  }
+
   .modal-content {
-    padding: 35px;
+    --modal-pad-y: 35px;
+    --modal-pad-x: 35px;
     max-width: 550px;
   }
 
   .welcome-title {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .welcome-text {
-    font-size: 15px;
+    font-size: 11px;
   }
 }
 
 @media (max-width: 768px) {
   #info-btn {
-    padding: 6px;
-  }
-
-  #info-btn img {
+    top: calc(env(safe-area-inset-top, 0px) + 1.7rem);
+    right: calc(env(safe-area-inset-right, 0px) + 15px);
     width: 40px;
     height: 40px;
   }
 
+  .info-btn-icon {
+    font-size: 40px;
+  }
+
   .modal-content {
-    padding: 30px 20px;
+    --modal-pad-y: 30px;
+    --modal-pad-x: 20px;
     max-width: 95%;
   }
 
   .welcome-title {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 20px;
     letter-spacing: 1px;
   }
 
   .welcome-text {
-    font-size: 14px;
+    font-size: 10px;
     margin-bottom: 24px;
   }
 
+  .modal-footer {
+    align-items: center;
+    gap: 18px;
+  }
+
   .bymd-logo {
-    bottom: 15px;
-    right: 15px;
+    margin-left: 0;
   }
 
   .bymd-logo img {
     height: 30px;
   }
 }
-
-

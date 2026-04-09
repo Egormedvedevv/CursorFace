@@ -8,57 +8,116 @@
 }
 
 .motion-toggle-btn {
-  min-width: 136px;
-  min-height: 48px;
-  padding: 10px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background: rgba(10, 10, 10, 0.88);
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: #fff;
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
-  font-family: Arial, sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
   cursor: pointer;
   pointer-events: auto;
-  transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
+  transition: transform 0.16s ease, opacity 0.18s ease, filter 0.18s ease;
 }
 
 .motion-toggle-btn:hover:not(:disabled),
 .motion-toggle-btn:focus-visible {
-  border-color: rgba(255, 255, 255, 0.45);
-  background: rgba(18, 18, 18, 0.95);
+  filter: brightness(1.08);
 }
 
 .motion-toggle-btn:active:not(:disabled) {
-  transform: scale(0.97);
+  transform: scale(0.96);
 }
 
 .motion-toggle-btn:disabled {
   cursor: default;
-  opacity: 0.8;
+  opacity: 0.72;
 }
 
 .motion-toggle-btn.is-active {
-  border-color: rgba(255, 255, 255, 0.55);
-  background:
-    linear-gradient(180deg, rgba(35, 35, 35, 0.94), rgba(8, 8, 8, 0.94));
+  filter: brightness(1.08);
 }
 
-.motion-toggle-title {
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.1;
+.motion-toggle-btn--prompt,
+.motion-toggle-btn--idle {
+  animation: motionTogglePulse 1.8s ease-in-out infinite;
 }
 
-.motion-toggle-detail {
-  font-size: 10px;
-  line-height: 1.1;
-  opacity: 0.72;
+.motion-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.16);
+}
+
+.motion-toggle-icon--active {
+  color: #d9ff96;
+  text-shadow: 0 0 10px rgba(217, 255, 150, 0.34);
+}
+
+.motion-toggle-icon--warning {
+  font-size: 42px;
+  color: rgba(255, 228, 228, 0.94);
+  text-shadow: 0 0 8px rgba(255, 112, 112, 0.18);
+}
+
+.motion-toggle-icon--muted {
+  color: rgba(255, 255, 255, 0.62);
+  text-shadow: none;
+}
+
+.motion-toggle-icon--spinning {
+  animation: motionSpinner 0.95s linear infinite;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes motionSpinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes motionTogglePulse {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@media (max-width: 768px) {
+  .motion-toggle-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .motion-toggle-icon {
+    font-size: 40px;
+  }
+
+  .motion-toggle-icon--warning {
+    font-size: 42px;
+  }
 }

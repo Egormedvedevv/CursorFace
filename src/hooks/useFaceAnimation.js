@@ -12,17 +12,17 @@ function sanitizeTransform(transform) {
   }
 }
 
-export function useFaceAnimation(targetPoint) {
+export function useFaceAnimation(targetPoint, options = {}) {
   const [transform, setTransform] = useState(() => createTransform())
   const animationFrameRef = useRef(null)
   const currentRef = useRef(createTransform())
   const targetRef = useRef(createTransform())
   const velocityRef = useRef(createTransform())
 
-  const stiffness = 0.08
-  const damping = 0.75
-  const moveFactor = 0.08
-  const maxRotation = 12
+  const stiffness = options.stiffness ?? 0.08
+  const damping = options.damping ?? 0.75
+  const moveFactor = options.moveFactor ?? 0.08
+  const maxRotation = options.maxRotation ?? 12
 
   useEffect(() => {
     if (!targetPoint) {
