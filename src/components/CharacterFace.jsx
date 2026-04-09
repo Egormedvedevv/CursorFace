@@ -1,38 +1,48 @@
-import { useRef, useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useEyeAnimation } from '../hooks/useEyeAnimation'
 import './CharacterFace.css'
 
-export default function CharacterFace({ character }) {
+const FACE_BASE_SIZE = 700
+const EYE_BASE_SIZE = 750
+const PUPIL_BASE_SIZE = 700
+
+function getInitialFaceWidth() {
+  if (typeof window === 'undefined') {
+    return FACE_BASE_SIZE
+  }
+
+  return Math.min(window.innerWidth * 0.85, FACE_BASE_SIZE)
+}
+
+export default function CharacterFace({ character, targetPosition }) {
   const leftEyeRef = useRef(null)
   const rightEyeRef = useRef(null)
   const leftPupilRef = useRef(null)
   const rightPupilRef = useRef(null)
   const faceRef = useRef(null)
-  const { getPupilTransform } = useEyeAnimation()
+  const { getPupilTransform } = useEyeAnimation(targetPosition)
   const animationFrameRef = useRef(null)
   const [isAltFace, setIsAltFace] = useState(false)
+  const [faceWidth, setFaceWidth] = useState(getInitialFaceWidth)
   const timeoutRef = useRef(null)
+  const currentFaceSrc = isAltFace && character.faceAlt ? character.faceAlt : character.face
 
   const handleFaceClick = () => {
     if (!character.faceAlt) {
-      console.log('No faceAlt for character:', character.id)
       return
     }
-    
-    console.log('Switching to alt face:', character.faceAlt)
+
     setIsAltFace(true)
-    
+
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
-    
+
     timeoutRef.current = setTimeout(() => {
-      console.log('Switching back to normal face')
       setIsAltFace(false)
     }, 1000)
   }
 
-  // Предзагрузка альтернативного изображения
   useEffect(() => {
     if (character.faceAlt) {
       const img = new Image()
@@ -47,6 +57,50 @@ export default function CharacterFace({ character }) {
       }
     }
   }, [])
+
+  useLayoutEffect(() => {
+    const faceElement = faceRef.current
+
+    if (!faceElement) {
+      return
+    }
+
+    const updateFaceWidth = () => {
+      const nextWidth = faceElement.getBoundingClientRect().width
+
+      if (!Number.isFinite(nextWidth) || nextWidth <= 0) {
+        return
+      }
+
+      setFaceWidth((currentWidth) =>
+        Math.abs(currentWidth - nextWidth) > 0.5 ? nextWidth : currentWidth
+      )
+    }
+
+    updateFaceWidth()
+
+    window.addEventListener('resize', updateFaceWidth)
+    window.addEventListener('orientationchange', updateFaceWidth)
+
+    if (typeof ResizeObserver === 'undefined') {
+      return () => {
+        window.removeEventListener('resize', updateFaceWidth)
+        window.removeEventListener('orientationchange', updateFaceWidth)
+      }
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateFaceWidth()
+    })
+
+    resizeObserver.observe(faceElement)
+
+    return () => {
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', updateFaceWidth)
+      window.removeEventListener('orientationchange', updateFaceWidth)
+    }
+  }, [currentFaceSrc])
 
   useEffect(() => {
     const updatePupils = () => {
@@ -69,7 +123,10 @@ export default function CharacterFace({ character }) {
     }
   }, [getPupilTransform])
 
-  const currentFaceSrc = isAltFace && character.faceAlt ? character.faceAlt : character.face
+  const scale = faceWidth / FACE_BASE_SIZE
+  const scaledEyeSize = `${EYE_BASE_SIZE * scale}px`
+  const scaledPupilSize = `${PUPIL_BASE_SIZE * scale}px`
+  const scaledOffset = (value) => `${value * scale}px`
 
   return (
     <div className="character" data-character-id={character.id}>
@@ -79,9 +136,9 @@ export default function CharacterFace({ character }) {
         alt="Основное лицо"
         className="main-face"
         onClick={handleFaceClick}
-        onError={(e) => {
+        onError={(event) => {
           console.error('Failed to load image:', currentFaceSrc)
-          e.target.src = character.face // Fallback to normal face
+          event.target.src = character.face
         }}
         style={{ cursor: 'pointer' }}
       />
@@ -90,8 +147,10 @@ export default function CharacterFace({ character }) {
         ref={leftEyeRef}
         className="eye eye-left"
         style={{
-          top: `${character.eyeLeftTop}px`,
-          left: `${character.eyeLeftLeft}px`,
+          top: scaledOffset(character.eyeLeftTop),
+          left: scaledOffset(character.eyeLeftLeft),
+          width: scaledEyeSize,
+          height: scaledEyeSize,
           opacity: isAltFace ? 0 : 1,
           transition: 'opacity 0.1s ease',
         }}
@@ -102,8 +161,10 @@ export default function CharacterFace({ character }) {
           src={character.pupilLeft}
           className="pupil pupil-left"
           style={{
-            top: `${character.pupilLeftTop}px`,
-            left: `${character.pupilLeftLeft}px`,
+            top: scaledOffset(character.pupilLeftTop),
+            left: scaledOffset(character.pupilLeftLeft),
+            width: scaledPupilSize,
+            height: scaledPupilSize,
           }}
           alt=""
         />
@@ -113,8 +174,10 @@ export default function CharacterFace({ character }) {
         ref={rightEyeRef}
         className="eye eye-right"
         style={{
-          top: `${character.eyeRightTop}px`,
-          left: `${character.eyeRightLeft}px`,
+          top: scaledOffset(character.eyeRightTop),
+          left: scaledOffset(character.eyeRightLeft),
+          width: scaledEyeSize,
+          height: scaledEyeSize,
           opacity: isAltFace ? 0 : 1,
           transition: 'opacity 0.1s ease',
         }}
@@ -125,8 +188,10 @@ export default function CharacterFace({ character }) {
           src={character.pupilRight}
           className="pupil pupil-right"
           style={{
-            top: `${character.pupilRightTop}px`,
-            left: `${character.pupilRightLeft}px`,
+            top: scaledOffset(character.pupilRightTop),
+            left: scaledOffset(character.pupilRightLeft),
+            width: scaledPupilSize,
+            height: scaledPupilSize,
           }}
           alt=""
         />
@@ -134,4 +199,3 @@ export default function CharacterFace({ character }) {
     </div>
   )
 }
-

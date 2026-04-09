@@ -9,7 +9,7 @@
 
 .start-logo {
   position: fixed;
-  top: 30px;
+  top: calc(env(safe-area-inset-top, 0px) + 30px);
   left: 50%;
   transform: translateX(-50%);
   width: clamp(200px, 30vw, 450px);
@@ -22,8 +22,8 @@
 
 @media (max-width: 768px) {
   .start-logo {
-    top: 20px;
-    width: clamp(150px, 50vw, 300px);
+    top: calc(env(safe-area-inset-top, 0px) + 18px);
+    width: clamp(150px, 48vw, 260px);
   }
 }
 
@@ -166,7 +166,7 @@
 
 .start-page .character-switcher {
   position: fixed !important;
-  bottom: 80px !important;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px) !important;
   top: auto !important;
   left: 50% !important;
   right: auto !important;
@@ -292,34 +292,35 @@
 /* Мобильные устройства */
 @media (max-width: 768px) {
   .start-page .character-switcher {
-    bottom: 50px !important;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 28px) !important;
     top: auto !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: 90vw;
-    max-width: 400px;
-    padding: 0 10px;
+    width: min(100%, 340px);
+    max-width: 340px;
+    padding: 0 12px;
     box-sizing: border-box;
   }
 
   .start-page .choose-label {
-    font-size: 12px !important;
-    margin-bottom: 20px !important;
-    letter-spacing: 1px !important;
+    font-size: clamp(12px, 3.6vw, 16px) !important;
+    margin-bottom: 16px !important;
+    letter-spacing: 1.4px !important;
     left: 50% !important;
   }
 
   .char-buttons {
-    gap: 12px;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    gap: 12px !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, auto) !important;
+    width: 100%;
   }
 
   .char-buttons img {
-    width: 100%;
-    height: auto;
+    width: clamp(72px, 22vw, 92px) !important;
+    height: clamp(72px, 22vw, 92px) !important;
     aspect-ratio: 1;
-    max-width: 55px;
+    max-width: none;
   }
 
   html,
@@ -349,3 +350,18 @@
   }
 }
 
+@media (max-width: 420px) {
+  .start-page .character-switcher {
+    width: min(100%, 312px);
+    max-width: 312px;
+  }
+
+  .char-buttons {
+    gap: 10px !important;
+  }
+
+  .char-buttons img {
+    width: clamp(66px, 21vw, 82px) !important;
+    height: clamp(66px, 21vw, 82px) !important;
+  }
+}

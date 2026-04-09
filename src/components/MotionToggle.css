@@ -1,0 +1,64 @@
+.motion-toggle {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1200;
+  pointer-events: none;
+}
+
+.motion-toggle-btn {
+  min-width: 136px;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(10, 10, 10, 0.88);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
+}
+
+.motion-toggle-btn:hover:not(:disabled),
+.motion-toggle-btn:focus-visible {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(18, 18, 18, 0.95);
+}
+
+.motion-toggle-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.motion-toggle-btn:disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+
+.motion-toggle-btn.is-active {
+  border-color: rgba(255, 255, 255, 0.55);
+  background:
+    linear-gradient(180deg, rgba(35, 35, 35, 0.94), rgba(8, 8, 8, 0.94));
+}
+
+.motion-toggle-title {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.motion-toggle-detail {
+  font-size: 10px;
+  line-height: 1.1;
+  opacity: 0.72;
+}

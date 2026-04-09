@@ -3,14 +3,24 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { characters } from '../data/characters'
 import CharacterFace from '../components/CharacterFace'
 import CharacterSwitcher from '../components/CharacterSwitcher'
+import MotionToggle from '../components/MotionToggle'
 import { useFaceAnimation } from '../hooks/useFaceAnimation'
+import { useInteractionInput } from '../hooks/useInteractionInput'
 import './MainPage.css'
 
 export default function MainPage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const [isFading, setIsFading] = useState(false)
-  const faceTransform = useFaceAnimation()
+  const {
+    inputPosition,
+    isMobileLike,
+    motionEnabled,
+    motionSupported,
+    motionUi,
+    toggleMotion,
+  } = useInteractionInput()
+  const faceTransform = useFaceAnimation(inputPosition)
 
   // Инициализация персонажа из URL параметров сразу при монтировании
   const getInitialCharacter = () => {
@@ -50,7 +60,7 @@ export default function MainPage() {
   }
 
   return (
-    <div className="main-page">
+    <div className={`main-page ${isMobileLike ? 'is-mobile-ready' : ''}`}>
       <img
         src={`${import.meta.env.BASE_URL}images/back-to-start.png`}
         alt="Back to Start"
@@ -65,6 +75,15 @@ export default function MainPage() {
         currentCharacterId={currentCharacter.id}
       />
 
+      {isMobileLike ? (
+        <MotionToggle
+          motionEnabled={motionEnabled}
+          motionSupported={motionSupported}
+          motionUi={motionUi}
+          onToggle={toggleMotion}
+        />
+      ) : null}
+
       <main>
         <div
           className="character-container"
@@ -72,7 +91,10 @@ export default function MainPage() {
             transform: `translate(${faceTransform.x}px, ${faceTransform.y}px) rotate(${faceTransform.rotate}deg)`,
           }}
         >
-          <CharacterFace character={currentCharacter} />
+          <CharacterFace
+            character={currentCharacter}
+            targetPosition={inputPosition}
+          />
         </div>
         <div className="speech"></div>
       </main>
@@ -92,5 +114,3 @@ export default function MainPage() {
     </div>
   )
 }
-
-

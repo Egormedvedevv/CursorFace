@@ -57,8 +57,8 @@
 
 .back-to-start-btn {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: calc(env(safe-area-inset-top, 0px) + 20px);
+  right: calc(env(safe-area-inset-right, 0px) + 20px);
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -100,8 +100,8 @@
   .back-to-start-btn {
     width: 40px;
     height: 40px;
-    top: 15px;
-    right: 15px;
+    top: calc(env(safe-area-inset-top, 0px) + 15px);
+    right: calc(env(safe-area-inset-right, 0px) + 15px);
   }
 }
 
@@ -136,8 +136,12 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .main-page.is-mobile-ready main {
+    padding: calc(env(safe-area-inset-top, 0px) + 78px) 0 calc(env(safe-area-inset-bottom, 0px) + 92px);
+  }
+
   footer {
-    padding: 10px 15px;
+    padding: 10px calc(env(safe-area-inset-right, 0px) + 15px) calc(env(safe-area-inset-bottom, 0px) + 10px) calc(env(safe-area-inset-left, 0px) + 15px);
   }
 }
 
@@ -204,5 +208,4 @@ footer .logo:active {
     touch-action: none;
   }
 }
-
 

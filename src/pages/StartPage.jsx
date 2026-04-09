@@ -5,7 +5,6 @@ import InfoModal from '../components/InfoModal'
 import './StartPage.css'
 
 export default function StartPage() {
-  console.log('StartPage component rendering')
   const navigate = useNavigate()
   const logoRef = useRef(null)
   const [logoTransform, setLogoTransform] = useState({ x: 0, y: 0, scale: 1 })
@@ -129,7 +128,6 @@ export default function StartPage() {
     navigate(`/main?char=${charId}`)
   }
 
-  console.log('StartPage returning JSX')
   return (
     <div className="start-page" style={{ backgroundColor: '#0a0a0a', minHeight: '100vh', color: '#fff' }}>
       <div className="start-page-background">
@@ -171,4 +169,3 @@ export default function StartPage() {
     </div>
   )
 }
-
