@@ -5,7 +5,6 @@ import InfoModal from '../components/InfoModal'
 import './StartPage.css'
 
 export default function StartPage() {
-  console.log('StartPage component rendering')
   const navigate = useNavigate()
   const logoRef = useRef(null)
   const [logoTransform, setLogoTransform] = useState({ x: 0, y: 0, scale: 1 })
@@ -129,9 +128,8 @@ export default function StartPage() {
     navigate(`/main?char=${charId}`)
   }
 
-  console.log('StartPage returning JSX')
   return (
-    <div className="start-page" style={{ backgroundColor: '#0a0a0a', minHeight: '100vh', color: '#fff' }}>
+    <div className="start-page" style={{ backgroundColor: '#0a0a0a', minHeight: '100dvh', color: '#fff' }}>
       <div className="start-page-background">
         <div className="grid-pattern"></div>
         <div className="pixel-pattern"></div>
@@ -146,7 +144,7 @@ export default function StartPage() {
         className="start-logo"
         alt="CursorFace Logo"
         style={{
-          transform: `translate(calc(-50% + ${logoTransform.x}px), ${logoTransform.y}px) scale(${logoTransform.scale})`,
+          transform: `translate(calc(var(--start-logo-base-shift-x, -50%) + ${logoTransform.x}px), ${logoTransform.y}px) scale(${logoTransform.scale})`,
         }}
         loading="lazy"
       />
@@ -171,4 +169,3 @@ export default function StartPage() {
     </div>
   )
 }
-
