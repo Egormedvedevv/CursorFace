@@ -1,7 +1,7 @@
 .character-switcher {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: calc(env(safe-area-inset-top, 0px) + 20px);
+  left: calc(env(safe-area-inset-left, 0px) + 20px);
   z-index: 1000;
 }
 
@@ -25,8 +25,8 @@
 
 @media (max-width: 768px) {
   .character-switcher {
-    top: 15px;
-    left: 15px;
+    top: calc(env(safe-area-inset-top, 0px) + 15px);
+    left: calc(env(safe-area-inset-left, 0px) + 15px);
   }
 }
 
@@ -118,5 +118,4 @@
 .character-switcher .menu img:active {
   transform: scale(1.1);
 }
-
 
