@@ -1,170 +1,89 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function useFaceAnimation() {
-  const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0, rotate: 0 })
-  const [transform, setTransform] = useState({ x: 0, y: 0, rotate: 0 })
+function createTransform() {
+  return { x: 0, y: 0, rotate: 0 }
+}
+
+function sanitizeTransform(transform) {
+  return {
+    x: Number.isFinite(transform.x) ? transform.x : 0,
+    y: Number.isFinite(transform.y) ? transform.y : 0,
+    rotate: Number.isFinite(transform.rotate) ? transform.rotate : 0,
+  }
+}
+
+export function useFaceAnimation(targetPoint, options = {}) {
+  const [transform, setTransform] = useState(() => createTransform())
   const animationFrameRef = useRef(null)
-  const currentRef = useRef({ x: 0, y: 0, rotate: 0 })
-  const velocityRef = useRef({ x: 0, y: 0, rotate: 0 })
+  const currentRef = useRef(createTransform())
+  const targetRef = useRef(createTransform())
+  const velocityRef = useRef(createTransform())
 
-  const stiffness = 0.08
-  const damping = 0.75
-  const moveFactor = 0.08 // Коэффициент движения за курсором
-  const maxRotation = 12 // Максимальный угол поворота в градусах
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const centerX = window.innerWidth / 2
-      const centerY = window.innerHeight / 2
-      
-      // Вычисляем смещение от центра
-      const dx = e.clientX - centerX
-      const dy = e.clientY - centerY
-      
-      // Вычисляем максимальное возможное расстояние от центра до края экрана
-      const maxDistanceX = window.innerWidth / 2
-      const maxDistanceY = window.innerHeight / 2
-      const maxDistance = Math.sqrt(maxDistanceX * maxDistanceX + maxDistanceY * maxDistanceY)
-      
-      // Вычисляем расстояние до курсора
-      const distance = Math.sqrt(dx * dx + dy * dy)
-      
-      // Нормализуем расстояние для равномерного эффекта на всем экране
-      const normalizedDistance = Math.min(distance / maxDistance, 1)
-      
-      // Вычисляем движение с нормализацией
-      const moveX = dx * moveFactor * normalizedDistance
-      const moveY = dy * moveFactor * normalizedDistance
-      
-      // Вычисляем угол поворота в направлении курсора
-      // Для симметрии используем горизонтальную компоненту с учетом направления
-      const horizontalRatio = dx / maxDistanceX
-      // Нормализуем поворот: используем normalizedDistance для плавного увеличения угла
-      // Максимальный угол поворота достигается на краю экрана
-      // Используем горизонтальную компоненту для симметричного поворота слева и справа
-      const rotation = horizontalRatio * maxRotation * normalizedDistance
-      
-      setTargetPosition({
-        x: moveX,
-        y: moveY,
-        rotate: rotation,
-      })
-    }
-
-    const handleTouchMove = (e) => {
-      e.preventDefault()
-      const touch = e.touches[0]
-      if (touch) {
-        const centerX = window.innerWidth / 2
-        const centerY = window.innerHeight / 2
-        
-        const dx = touch.clientX - centerX
-        const dy = touch.clientY - centerY
-        
-        const maxDistanceX = window.innerWidth / 2
-        const maxDistanceY = window.innerHeight / 2
-        const maxDistance = Math.sqrt(maxDistanceX * maxDistanceX + maxDistanceY * maxDistanceY)
-        
-        const distance = Math.sqrt(dx * dx + dy * dy)
-        const normalizedDistance = Math.min(distance / maxDistance, 1)
-        
-        const moveX = dx * moveFactor * normalizedDistance
-        const moveY = dy * moveFactor * normalizedDistance
-        const horizontalRatio = dx / maxDistanceX
-        const rotation = horizontalRatio * maxRotation * normalizedDistance
-        
-        setTargetPosition({
-          x: moveX,
-          y: moveY,
-          rotate: rotation,
-        })
-      }
-    }
-
-    const handleTouchStart = (e) => {
-      const touch = e.touches[0]
-      if (touch) {
-        const centerX = window.innerWidth / 2
-        const centerY = window.innerHeight / 2
-        
-        const dx = touch.clientX - centerX
-        const dy = touch.clientY - centerY
-        
-        const maxDistanceX = window.innerWidth / 2
-        const maxDistanceY = window.innerHeight / 2
-        const maxDistance = Math.sqrt(maxDistanceX * maxDistanceX + maxDistanceY * maxDistanceY)
-        
-        const distance = Math.sqrt(dx * dx + dy * dy)
-        const normalizedDistance = Math.min(distance / maxDistance, 1)
-        
-        const moveX = dx * moveFactor * normalizedDistance
-        const moveY = dy * moveFactor * normalizedDistance
-        const horizontalRatio = dx / maxDistanceX
-        const rotation = horizontalRatio * maxRotation * normalizedDistance
-        
-        setTargetPosition({
-          x: moveX,
-          y: moveY,
-          rotate: rotation,
-        })
-      }
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('touchmove', handleTouchMove, { passive: false })
-    window.addEventListener('touchstart', handleTouchStart)
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('touchmove', handleTouchMove)
-      window.removeEventListener('touchstart', handleTouchStart)
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-      }
-    }
-  }, [])
+  const stiffness = options.stiffness ?? 0.08
+  const damping = options.damping ?? 0.75
+  const moveFactor = options.moveFactor ?? 0.08
+  const maxRotation = options.maxRotation ?? 12
 
   useEffect(() => {
-    // Запускаем анимацию сразу при монтировании
+    if (!targetPoint) {
+      targetRef.current = createTransform()
+      return
+    }
+
+    const centerX = window.innerWidth / 2
+    const centerY = window.innerHeight / 2
+
+    const dx = targetPoint.x - centerX
+    const dy = targetPoint.y - centerY
+
+    const maxDistanceX = window.innerWidth / 2
+    const maxDistanceY = window.innerHeight / 2
+    const maxDistance = Math.sqrt(maxDistanceX * maxDistanceX + maxDistanceY * maxDistanceY)
+    const distance = Math.sqrt(dx * dx + dy * dy)
+    const normalizedDistance = Math.min(distance / maxDistance, 1)
+    const horizontalRatio = dx / maxDistanceX
+
+    targetRef.current = sanitizeTransform({
+      x: dx * moveFactor * normalizedDistance,
+      y: dy * moveFactor * normalizedDistance,
+      rotate: horizontalRatio * maxRotation * normalizedDistance,
+    })
+  }, [targetPoint])
+
+  useEffect(() => {
     const animate = () => {
-      // Плавное движение по X
-      const forceX = (targetPosition.x - currentRef.current.x) * stiffness
+      const target = targetRef.current
+
+      const forceX = (target.x - currentRef.current.x) * stiffness
       velocityRef.current.x = velocityRef.current.x * damping + forceX
       currentRef.current.x += velocityRef.current.x
 
-      // Плавное движение по Y
-      const forceY = (targetPosition.y - currentRef.current.y) * stiffness
+      const forceY = (target.y - currentRef.current.y) * stiffness
       velocityRef.current.y = velocityRef.current.y * damping + forceY
       currentRef.current.y += velocityRef.current.y
 
-      // Плавный поворот в сторону курсора
-      // Нормализуем угол поворота для плавного перехода через 0
-      let targetRotate = targetPosition.rotate
-      let currentRotate = currentRef.current.rotate
-      
-      // Находим кратчайший путь поворота
-      let diff = targetRotate - currentRotate
-      if (diff > 180) diff -= 360
-      if (diff < -180) diff += 360
-      
-      const forceR = diff * stiffness
-      velocityRef.current.rotate = velocityRef.current.rotate * damping + forceR
+      let rotationDiff = target.rotate - currentRef.current.rotate
+      if (rotationDiff > 180) rotationDiff -= 360
+      if (rotationDiff < -180) rotationDiff += 360
+
+      const forceRotate = rotationDiff * stiffness
+      velocityRef.current.rotate = velocityRef.current.rotate * damping + forceRotate
       currentRef.current.rotate += velocityRef.current.rotate
-      
-      // Нормализуем угол в диапазоне -180 до 180
+
       if (currentRef.current.rotate > 180) currentRef.current.rotate -= 360
       if (currentRef.current.rotate < -180) currentRef.current.rotate += 360
 
-      setTransform({
+      const nextTransform = sanitizeTransform({
         x: currentRef.current.x,
         y: currentRef.current.y,
         rotate: currentRef.current.rotate,
       })
+      currentRef.current = nextTransform
+      setTransform(nextTransform)
 
       animationFrameRef.current = requestAnimationFrame(animate)
     }
 
-    // Запускаем анимацию немедленно
     animationFrameRef.current = requestAnimationFrame(animate)
 
     return () => {
@@ -172,9 +91,7 @@ export function useFaceAnimation() {
         cancelAnimationFrame(animationFrameRef.current)
       }
     }
-  }, [targetPosition])
+  }, [])
 
   return transform
 }
-
-
